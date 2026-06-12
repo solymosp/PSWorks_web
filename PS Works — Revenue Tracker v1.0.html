@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///Users/peters/Downloads/psworks_tracker.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS Works — Revenue Tracker</title>
+
+<script>
+  /*
+  ══════════════════════════════════════════════════════
+  CONFIGURATION — change only this section
+  ══════════════════════════════════════════════════════
+
+  STEP 1: Create a Google Sheet with these exact columns in row 1:
+      Date        Amount      Note
+  Then add your revenue entries from row 2 onwards.
+  Date format: YYYY-MM-DD (e.g. 2026-06-15)
+  Amount: number only, no currency symbol (e.g. 3200)
+  Note: free text (e.g. Advisory Retainer - Tamás)
+
+  STEP 2: In Google Sheets:
+      File → Share → Publish to web
+      → Sheet1 → CSV → Publish
+      → Copy the link
+
+  STEP 3: Paste that link below, replacing the empty string.
+  ══════════════════════════════════════════════════════
+  */
+  const CSV_URL = '';       // ← PASTE YOUR GOOGLE SHEETS URL HERE
+  const TARGET  = 350000;  // ← Change target if needed (EUR)
+  const START   = '2026-06-01'; // ← Plan start date
+  const END     = '2027-05-31'; // ← Plan end date
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:       #F5F4F0;
+    --surface:  #FFFFFF;
+    --surface2: #F0EEE9;
+    --border:   rgba(0,0,0,0.10);
+    --text:     #1A1A1A;
+    --muted:    #6B6B6B;
+    --hint:     #9A9890;
+    --green1:   #EAF3DE;
+    --green2:   #97C459;
+    --green3:   #3B6D11;
+    --green4:   #173404;
+    --teal:     #0F6E56;
+    --navy:     #1B3A5C;
+    --empty:    #E8E4DA;
+    --radius:   8px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:       #0E1117;
+      --surface:  #161B22;
+      --surface2: #21262D;
+      --border:   rgba(255,255,255,0.10);
+      --text:     #E6EDF3;
+      --muted:    #8B949E;
+      --hint:     #6E7681;
+      --green1:   #27500A;
+      --green2:   #3B6D11;
+      --green3:   #97C459;
+      --green4:   #C0DD97;
+      --teal:     #5DCAA5;
+      --navy:     #9FE1CB;
+      --empty:    #21262D;
+    }
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text); padding: 24px 16px; max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; color: var(--hint); margin-bottom: 12px; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .metric { background: var(--surface2); border-radius: var(--radius); padding: 10px 14px; }
+  .metric-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .metric-val { font-size: 22px; font-weight: 500; color: var(--text); }
+  .metric-sub { font-size: 10px; color: var(--hint); margin-top: 2px; }
+  .track { height: 18px; background: var(--surface2); border-radius: 9px; overflow: hidden; margin-bottom: 6px; }
+  .track-fill { height: 100%; background: var(--teal); border-radius: 9px; transition: width .5s ease; }
+  .track-marks { display: flex; justify-content: space-between; font-size: 10px; color: var(--hint); }
+  .hm-wrap { overflow-x: auto; }
+  .hm-outer { display: flex; gap: 6px; min-width: max-content; }
+  .hm-day-labels { display: grid; grid-template-rows: 18px repeat(7, 12px); gap: 2px; font-size: 9px; color: var(--hint); line-height: 12px; text-align: right; padding-top: 2px; }
+  .hm-main { flex: 1; }
+  .hm-months { display: flex; font-size: 10px; color: var(--hint); margin-bottom: 4px; height: 14px; }
+  .hm-grid { display: grid; grid-template-rows: repeat(7, 12px); grid-auto-flow: column; gap: 2px; }
+  .hm-cell { width: 12px; height: 12px; border-radius: 2px; cursor: default; }
+  .hm-cell[data-val]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translateY(-130%);
+    left: 50%;
+    translate: -50%;
+    z-index: 99;
+  }
+  .hm-cell { position: relative; }
+  .hm-legend { display: flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 11px; color: var(--hint); }
+  .leg-cell { width: 12px; height: 12px; border-radius: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 10px; font-weight: 600; letter-spacing: .08em; color: var(--hint);
+    padding: 6px 8px; border-bottom: 0.5px solid var(--border); }
+  td { padding: 8px 8px; border-bottom: 0.5px solid var(--border); color: var(--muted); }
+  tr:last-child td { border-bottom: none; }
+  .amount-cell { font-weight: 500; color: var(--teal); }
+  .running-cell { text-align: right; color: var(--text); }
+  .status-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--radius); margin-bottom: 14px; font-size: 13px; }
+  .status-ok  { background: var(--green1); color: var(--green3); border: 0.5px solid var(--green2); }
+  .status-err { background: #FEF3C7; color: #92400E; border: 0.5px solid #FCD34D; }
+  @media (prefers-color-scheme: dark) {
+    .status-ok  { background: #0D2B0D; color: var(--green4); border-color: var(--green2); }
+    .status-err { background: #2D1F00; color: #FCD34D; border-color: #92400E; }
+  }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--teal); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .refresh-btn { font-size: 11px; padding: 4px 10px; cursor: pointer; border: 0.5px solid var(--border); background: var(--surface2); border-radius: 4px; color: var(--muted); }
+  .refresh-btn:hover { background: var(--surface); color: var(--text); }
+  .setup-box { border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 14px; }
+  .setup-box h2 { font-size: 14px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
+  .setup-box code { font-family: 'Courier New', monospace; font-size: 12px; background: var(--surface2); padding: 2px 6px; border-radius: 3px; color: var(--teal); }
+  .setup-box ol { padding-left: 18px; font-size: 13px; color: var(--muted); line-height: 2; }
+  .last-updated { font-size: 11px; color: var(--hint); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<h1>PS Works — Revenue Tracker</h1>
+<p class="subtitle">Target: €350,000 · June 2026 – May 2027</p>
+
+<div id="status-bar" class="status-bar status-err" style="display: flex;"><i>⚙</i> Not configured — see setup instructions below. Showing empty tracker.</div>
+
+<div id="setup-box" class="setup-box" style="display: block;">
+  <h2>Setup required — connect your Google Sheet</h2>
+  <ol>
+    <li>Create a Google Sheet with columns: <code>Date</code> &nbsp; <code>Amount</code> &nbsp; <code>Note</code></li>
+    <li>Add entries from row 2 (date as YYYY-MM-DD, amount as number)</li>
+    <li>File → Share → Publish to web → Sheet1 → CSV → Publish → Copy link</li>
+    <li>Open this HTML file in a text editor, find <code>const CSV_URL = ''</code> and paste the link between the quotes</li>
+    <li>Save and reload</li>
+  </ol>
+</div>
+
+<div class="metrics" id="metrics">
+  <div class="metric"><div class="metric-label">Total earned</div><div class="metric-val" id="m-total">€0</div><div class="metric-sub">of €350,000</div></div>
+  <div class="metric"><div class="metric-label">Progress</div><div class="metric-val" id="m-pct">0.0%</div><div class="metric-sub">to annual target</div></div>
+  <div class="metric"><div class="metric-label">This month</div><div class="metric-val" id="m-month">€0</div><div class="metric-sub" id="m-month-name">May 2026</div></div>
+  <div class="metric"><div class="metric-label">Run rate</div><div class="metric-val" id="m-rate">—</div><div class="metric-sub">annualised</div></div>
+</div>
+
+<div class="card">
+  <div class="card-label">PROGRESS TO €350,000</div>
+  <div class="track"><div class="track-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="track-marks">
+    <span>€0</span><span>€87.5K</span><span>€175K</span><span>€262.5K</span><span>€350K</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-label" style="display:flex;justify-content:space-between;align-items:center;">
+    <span>REVENUE HEATMAP</span>
+    <button class="refresh-btn" onclick="loadData()">Refresh data</button>
+  </div>
+  <div class="hm-wrap">
+    <div class="hm-outer">
+      <div class="hm-day-labels">
+        <div></div><div>Mon</div><div></div><div>Wed</div><div></div><div>Fri</div><div></div>
+      </div>
+      <div class="hm-main">
+        <div class="hm-months" id="hm-months"><span style="min-width: 0px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Jun</span><span style="min-width: 70px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Jul</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Aug</span><span style="min-width: 70px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Sep</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Oct</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Nov</span><span style="min-width: 70px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Dec</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Jan</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Feb</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Mar</span><span style="min-width: 70px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">Apr</span><span style="min-width: 56px; display: inline-block;"></span><span style="display: inline-block; min-width: 42px;">May</span></div>
+        <div class="hm-grid" id="hm-grid"><div class="hm-cell" data-tip="2026-05-31: no revenue" data-val="0" title="2026-05-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-01: no revenue" data-val="0" title="2026-06-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-02: no revenue" data-val="0" title="2026-06-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-03: no revenue" data-val="0" title="2026-06-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-04: no revenue" data-val="0" title="2026-06-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-05: no revenue" data-val="0" title="2026-06-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-06: no revenue" data-val="0" title="2026-06-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-07: no revenue" data-val="0" title="2026-06-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-08: no revenue" data-val="0" title="2026-06-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-09: no revenue" data-val="0" title="2026-06-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-10: no revenue" data-val="0" title="2026-06-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-11: no revenue" data-val="0" title="2026-06-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-12: no revenue" data-val="0" title="2026-06-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-13: no revenue" data-val="0" title="2026-06-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-14: no revenue" data-val="0" title="2026-06-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-15: no revenue" data-val="0" title="2026-06-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-16: no revenue" data-val="0" title="2026-06-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-17: no revenue" data-val="0" title="2026-06-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-18: no revenue" data-val="0" title="2026-06-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-19: no revenue" data-val="0" title="2026-06-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-20: no revenue" data-val="0" title="2026-06-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-21: no revenue" data-val="0" title="2026-06-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-22: no revenue" data-val="0" title="2026-06-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-23: no revenue" data-val="0" title="2026-06-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-24: no revenue" data-val="0" title="2026-06-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-25: no revenue" data-val="0" title="2026-06-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-26: no revenue" data-val="0" title="2026-06-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-27: no revenue" data-val="0" title="2026-06-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-28: no revenue" data-val="0" title="2026-06-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-29: no revenue" data-val="0" title="2026-06-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-06-30: no revenue" data-val="0" title="2026-06-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-01: no revenue" data-val="0" title="2026-07-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-02: no revenue" data-val="0" title="2026-07-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-03: no revenue" data-val="0" title="2026-07-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-04: no revenue" data-val="0" title="2026-07-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-05: no revenue" data-val="0" title="2026-07-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-06: no revenue" data-val="0" title="2026-07-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-07: no revenue" data-val="0" title="2026-07-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-08: no revenue" data-val="0" title="2026-07-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-09: no revenue" data-val="0" title="2026-07-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-10: no revenue" data-val="0" title="2026-07-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-11: no revenue" data-val="0" title="2026-07-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-12: no revenue" data-val="0" title="2026-07-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-13: no revenue" data-val="0" title="2026-07-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-14: no revenue" data-val="0" title="2026-07-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-15: no revenue" data-val="0" title="2026-07-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-16: no revenue" data-val="0" title="2026-07-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-17: no revenue" data-val="0" title="2026-07-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-18: no revenue" data-val="0" title="2026-07-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-19: no revenue" data-val="0" title="2026-07-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-20: no revenue" data-val="0" title="2026-07-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-21: no revenue" data-val="0" title="2026-07-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-22: no revenue" data-val="0" title="2026-07-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-23: no revenue" data-val="0" title="2026-07-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-24: no revenue" data-val="0" title="2026-07-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-25: no revenue" data-val="0" title="2026-07-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-26: no revenue" data-val="0" title="2026-07-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-27: no revenue" data-val="0" title="2026-07-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-28: no revenue" data-val="0" title="2026-07-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-29: no revenue" data-val="0" title="2026-07-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-30: no revenue" data-val="0" title="2026-07-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-07-31: no revenue" data-val="0" title="2026-07-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-01: no revenue" data-val="0" title="2026-08-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-02: no revenue" data-val="0" title="2026-08-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-03: no revenue" data-val="0" title="2026-08-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-04: no revenue" data-val="0" title="2026-08-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-05: no revenue" data-val="0" title="2026-08-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-06: no revenue" data-val="0" title="2026-08-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-07: no revenue" data-val="0" title="2026-08-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-08: no revenue" data-val="0" title="2026-08-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-09: no revenue" data-val="0" title="2026-08-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-10: no revenue" data-val="0" title="2026-08-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-11: no revenue" data-val="0" title="2026-08-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-12: no revenue" data-val="0" title="2026-08-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-13: no revenue" data-val="0" title="2026-08-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-14: no revenue" data-val="0" title="2026-08-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-15: no revenue" data-val="0" title="2026-08-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-16: no revenue" data-val="0" title="2026-08-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-17: no revenue" data-val="0" title="2026-08-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-18: no revenue" data-val="0" title="2026-08-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-19: no revenue" data-val="0" title="2026-08-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-20: no revenue" data-val="0" title="2026-08-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-21: no revenue" data-val="0" title="2026-08-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-22: no revenue" data-val="0" title="2026-08-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-23: no revenue" data-val="0" title="2026-08-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-24: no revenue" data-val="0" title="2026-08-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-25: no revenue" data-val="0" title="2026-08-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-26: no revenue" data-val="0" title="2026-08-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-27: no revenue" data-val="0" title="2026-08-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-28: no revenue" data-val="0" title="2026-08-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-29: no revenue" data-val="0" title="2026-08-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-30: no revenue" data-val="0" title="2026-08-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-08-31: no revenue" data-val="0" title="2026-08-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-01: no revenue" data-val="0" title="2026-09-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-02: no revenue" data-val="0" title="2026-09-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-03: no revenue" data-val="0" title="2026-09-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-04: no revenue" data-val="0" title="2026-09-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-05: no revenue" data-val="0" title="2026-09-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-06: no revenue" data-val="0" title="2026-09-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-07: no revenue" data-val="0" title="2026-09-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-08: no revenue" data-val="0" title="2026-09-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-09: no revenue" data-val="0" title="2026-09-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-10: no revenue" data-val="0" title="2026-09-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-11: no revenue" data-val="0" title="2026-09-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-12: no revenue" data-val="0" title="2026-09-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-13: no revenue" data-val="0" title="2026-09-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-14: no revenue" data-val="0" title="2026-09-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-15: no revenue" data-val="0" title="2026-09-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-16: no revenue" data-val="0" title="2026-09-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-17: no revenue" data-val="0" title="2026-09-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-18: no revenue" data-val="0" title="2026-09-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-19: no revenue" data-val="0" title="2026-09-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-20: no revenue" data-val="0" title="2026-09-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-21: no revenue" data-val="0" title="2026-09-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-22: no revenue" data-val="0" title="2026-09-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-23: no revenue" data-val="0" title="2026-09-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-24: no revenue" data-val="0" title="2026-09-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-25: no revenue" data-val="0" title="2026-09-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-26: no revenue" data-val="0" title="2026-09-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-27: no revenue" data-val="0" title="2026-09-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-28: no revenue" data-val="0" title="2026-09-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-29: no revenue" data-val="0" title="2026-09-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-09-30: no revenue" data-val="0" title="2026-09-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-01: no revenue" data-val="0" title="2026-10-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-02: no revenue" data-val="0" title="2026-10-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-03: no revenue" data-val="0" title="2026-10-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-04: no revenue" data-val="0" title="2026-10-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-05: no revenue" data-val="0" title="2026-10-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-06: no revenue" data-val="0" title="2026-10-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-07: no revenue" data-val="0" title="2026-10-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-08: no revenue" data-val="0" title="2026-10-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-09: no revenue" data-val="0" title="2026-10-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-10: no revenue" data-val="0" title="2026-10-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-11: no revenue" data-val="0" title="2026-10-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-12: no revenue" data-val="0" title="2026-10-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-13: no revenue" data-val="0" title="2026-10-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-14: no revenue" data-val="0" title="2026-10-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-15: no revenue" data-val="0" title="2026-10-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-16: no revenue" data-val="0" title="2026-10-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-17: no revenue" data-val="0" title="2026-10-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-18: no revenue" data-val="0" title="2026-10-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-19: no revenue" data-val="0" title="2026-10-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-20: no revenue" data-val="0" title="2026-10-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-21: no revenue" data-val="0" title="2026-10-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-22: no revenue" data-val="0" title="2026-10-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-23: no revenue" data-val="0" title="2026-10-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-24: no revenue" data-val="0" title="2026-10-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-25: no revenue" data-val="0" title="2026-10-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-26: no revenue" data-val="0" title="2026-10-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-27: no revenue" data-val="0" title="2026-10-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-28: no revenue" data-val="0" title="2026-10-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-29: no revenue" data-val="0" title="2026-10-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-30: no revenue" data-val="0" title="2026-10-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-10-31: no revenue" data-val="0" title="2026-10-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-01: no revenue" data-val="0" title="2026-11-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-02: no revenue" data-val="0" title="2026-11-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-03: no revenue" data-val="0" title="2026-11-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-04: no revenue" data-val="0" title="2026-11-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-05: no revenue" data-val="0" title="2026-11-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-06: no revenue" data-val="0" title="2026-11-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-07: no revenue" data-val="0" title="2026-11-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-08: no revenue" data-val="0" title="2026-11-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-09: no revenue" data-val="0" title="2026-11-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-10: no revenue" data-val="0" title="2026-11-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-11: no revenue" data-val="0" title="2026-11-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-12: no revenue" data-val="0" title="2026-11-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-13: no revenue" data-val="0" title="2026-11-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-14: no revenue" data-val="0" title="2026-11-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-15: no revenue" data-val="0" title="2026-11-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-16: no revenue" data-val="0" title="2026-11-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-17: no revenue" data-val="0" title="2026-11-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-18: no revenue" data-val="0" title="2026-11-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-19: no revenue" data-val="0" title="2026-11-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-20: no revenue" data-val="0" title="2026-11-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-21: no revenue" data-val="0" title="2026-11-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-22: no revenue" data-val="0" title="2026-11-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-23: no revenue" data-val="0" title="2026-11-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-24: no revenue" data-val="0" title="2026-11-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-25: no revenue" data-val="0" title="2026-11-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-26: no revenue" data-val="0" title="2026-11-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-27: no revenue" data-val="0" title="2026-11-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-28: no revenue" data-val="0" title="2026-11-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-29: no revenue" data-val="0" title="2026-11-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-11-30: no revenue" data-val="0" title="2026-11-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-01: no revenue" data-val="0" title="2026-12-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-02: no revenue" data-val="0" title="2026-12-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-03: no revenue" data-val="0" title="2026-12-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-04: no revenue" data-val="0" title="2026-12-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-05: no revenue" data-val="0" title="2026-12-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-06: no revenue" data-val="0" title="2026-12-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-07: no revenue" data-val="0" title="2026-12-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-08: no revenue" data-val="0" title="2026-12-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-09: no revenue" data-val="0" title="2026-12-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-10: no revenue" data-val="0" title="2026-12-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-11: no revenue" data-val="0" title="2026-12-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-12: no revenue" data-val="0" title="2026-12-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-13: no revenue" data-val="0" title="2026-12-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-14: no revenue" data-val="0" title="2026-12-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-15: no revenue" data-val="0" title="2026-12-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-16: no revenue" data-val="0" title="2026-12-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-17: no revenue" data-val="0" title="2026-12-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-18: no revenue" data-val="0" title="2026-12-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-19: no revenue" data-val="0" title="2026-12-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-20: no revenue" data-val="0" title="2026-12-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-21: no revenue" data-val="0" title="2026-12-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-22: no revenue" data-val="0" title="2026-12-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-23: no revenue" data-val="0" title="2026-12-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-24: no revenue" data-val="0" title="2026-12-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-25: no revenue" data-val="0" title="2026-12-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-26: no revenue" data-val="0" title="2026-12-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-27: no revenue" data-val="0" title="2026-12-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-28: no revenue" data-val="0" title="2026-12-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-29: no revenue" data-val="0" title="2026-12-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-30: no revenue" data-val="0" title="2026-12-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2026-12-31: no revenue" data-val="0" title="2026-12-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-01: no revenue" data-val="0" title="2027-01-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-02: no revenue" data-val="0" title="2027-01-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-03: no revenue" data-val="0" title="2027-01-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-04: no revenue" data-val="0" title="2027-01-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-05: no revenue" data-val="0" title="2027-01-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-06: no revenue" data-val="0" title="2027-01-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-07: no revenue" data-val="0" title="2027-01-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-08: no revenue" data-val="0" title="2027-01-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-09: no revenue" data-val="0" title="2027-01-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-10: no revenue" data-val="0" title="2027-01-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-11: no revenue" data-val="0" title="2027-01-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-12: no revenue" data-val="0" title="2027-01-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-13: no revenue" data-val="0" title="2027-01-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-14: no revenue" data-val="0" title="2027-01-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-15: no revenue" data-val="0" title="2027-01-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-16: no revenue" data-val="0" title="2027-01-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-17: no revenue" data-val="0" title="2027-01-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-18: no revenue" data-val="0" title="2027-01-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-19: no revenue" data-val="0" title="2027-01-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-20: no revenue" data-val="0" title="2027-01-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-21: no revenue" data-val="0" title="2027-01-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-22: no revenue" data-val="0" title="2027-01-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-23: no revenue" data-val="0" title="2027-01-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-24: no revenue" data-val="0" title="2027-01-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-25: no revenue" data-val="0" title="2027-01-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-26: no revenue" data-val="0" title="2027-01-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-27: no revenue" data-val="0" title="2027-01-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-28: no revenue" data-val="0" title="2027-01-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-29: no revenue" data-val="0" title="2027-01-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-30: no revenue" data-val="0" title="2027-01-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-01-31: no revenue" data-val="0" title="2027-01-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-01: no revenue" data-val="0" title="2027-02-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-02: no revenue" data-val="0" title="2027-02-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-03: no revenue" data-val="0" title="2027-02-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-04: no revenue" data-val="0" title="2027-02-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-05: no revenue" data-val="0" title="2027-02-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-06: no revenue" data-val="0" title="2027-02-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-07: no revenue" data-val="0" title="2027-02-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-08: no revenue" data-val="0" title="2027-02-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-09: no revenue" data-val="0" title="2027-02-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-10: no revenue" data-val="0" title="2027-02-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-11: no revenue" data-val="0" title="2027-02-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-12: no revenue" data-val="0" title="2027-02-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-13: no revenue" data-val="0" title="2027-02-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-14: no revenue" data-val="0" title="2027-02-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-15: no revenue" data-val="0" title="2027-02-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-16: no revenue" data-val="0" title="2027-02-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-17: no revenue" data-val="0" title="2027-02-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-18: no revenue" data-val="0" title="2027-02-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-19: no revenue" data-val="0" title="2027-02-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-20: no revenue" data-val="0" title="2027-02-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-21: no revenue" data-val="0" title="2027-02-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-22: no revenue" data-val="0" title="2027-02-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-23: no revenue" data-val="0" title="2027-02-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-24: no revenue" data-val="0" title="2027-02-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-25: no revenue" data-val="0" title="2027-02-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-26: no revenue" data-val="0" title="2027-02-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-27: no revenue" data-val="0" title="2027-02-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-02-28: no revenue" data-val="0" title="2027-02-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-01: no revenue" data-val="0" title="2027-03-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-02: no revenue" data-val="0" title="2027-03-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-03: no revenue" data-val="0" title="2027-03-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-04: no revenue" data-val="0" title="2027-03-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-05: no revenue" data-val="0" title="2027-03-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-06: no revenue" data-val="0" title="2027-03-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-07: no revenue" data-val="0" title="2027-03-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-08: no revenue" data-val="0" title="2027-03-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-09: no revenue" data-val="0" title="2027-03-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-10: no revenue" data-val="0" title="2027-03-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-11: no revenue" data-val="0" title="2027-03-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-12: no revenue" data-val="0" title="2027-03-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-13: no revenue" data-val="0" title="2027-03-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-14: no revenue" data-val="0" title="2027-03-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-15: no revenue" data-val="0" title="2027-03-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-16: no revenue" data-val="0" title="2027-03-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-17: no revenue" data-val="0" title="2027-03-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-18: no revenue" data-val="0" title="2027-03-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-19: no revenue" data-val="0" title="2027-03-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-20: no revenue" data-val="0" title="2027-03-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-21: no revenue" data-val="0" title="2027-03-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-22: no revenue" data-val="0" title="2027-03-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-23: no revenue" data-val="0" title="2027-03-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-24: no revenue" data-val="0" title="2027-03-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-25: no revenue" data-val="0" title="2027-03-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-26: no revenue" data-val="0" title="2027-03-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-27: no revenue" data-val="0" title="2027-03-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-28: no revenue" data-val="0" title="2027-03-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-29: no revenue" data-val="0" title="2027-03-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-30: no revenue" data-val="0" title="2027-03-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-03-31: no revenue" data-val="0" title="2027-03-31" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-01: no revenue" data-val="0" title="2027-04-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-02: no revenue" data-val="0" title="2027-04-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-03: no revenue" data-val="0" title="2027-04-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-04: no revenue" data-val="0" title="2027-04-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-05: no revenue" data-val="0" title="2027-04-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-06: no revenue" data-val="0" title="2027-04-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-07: no revenue" data-val="0" title="2027-04-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-08: no revenue" data-val="0" title="2027-04-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-09: no revenue" data-val="0" title="2027-04-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-10: no revenue" data-val="0" title="2027-04-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-11: no revenue" data-val="0" title="2027-04-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-12: no revenue" data-val="0" title="2027-04-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-13: no revenue" data-val="0" title="2027-04-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-14: no revenue" data-val="0" title="2027-04-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-15: no revenue" data-val="0" title="2027-04-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-16: no revenue" data-val="0" title="2027-04-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-17: no revenue" data-val="0" title="2027-04-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-18: no revenue" data-val="0" title="2027-04-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-19: no revenue" data-val="0" title="2027-04-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-20: no revenue" data-val="0" title="2027-04-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-21: no revenue" data-val="0" title="2027-04-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-22: no revenue" data-val="0" title="2027-04-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-23: no revenue" data-val="0" title="2027-04-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-24: no revenue" data-val="0" title="2027-04-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-25: no revenue" data-val="0" title="2027-04-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-26: no revenue" data-val="0" title="2027-04-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-27: no revenue" data-val="0" title="2027-04-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-28: no revenue" data-val="0" title="2027-04-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-29: no revenue" data-val="0" title="2027-04-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-04-30: no revenue" data-val="0" title="2027-04-30" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-01: no revenue" data-val="0" title="2027-05-01" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-02: no revenue" data-val="0" title="2027-05-02" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-03: no revenue" data-val="0" title="2027-05-03" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-04: no revenue" data-val="0" title="2027-05-04" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-05: no revenue" data-val="0" title="2027-05-05" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-06: no revenue" data-val="0" title="2027-05-06" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-07: no revenue" data-val="0" title="2027-05-07" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-08: no revenue" data-val="0" title="2027-05-08" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-09: no revenue" data-val="0" title="2027-05-09" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-10: no revenue" data-val="0" title="2027-05-10" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-11: no revenue" data-val="0" title="2027-05-11" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-12: no revenue" data-val="0" title="2027-05-12" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-13: no revenue" data-val="0" title="2027-05-13" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-14: no revenue" data-val="0" title="2027-05-14" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-15: no revenue" data-val="0" title="2027-05-15" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-16: no revenue" data-val="0" title="2027-05-16" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-17: no revenue" data-val="0" title="2027-05-17" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-18: no revenue" data-val="0" title="2027-05-18" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-19: no revenue" data-val="0" title="2027-05-19" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-20: no revenue" data-val="0" title="2027-05-20" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-21: no revenue" data-val="0" title="2027-05-21" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-22: no revenue" data-val="0" title="2027-05-22" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-23: no revenue" data-val="0" title="2027-05-23" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-24: no revenue" data-val="0" title="2027-05-24" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-25: no revenue" data-val="0" title="2027-05-25" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-26: no revenue" data-val="0" title="2027-05-26" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-27: no revenue" data-val="0" title="2027-05-27" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-28: no revenue" data-val="0" title="2027-05-28" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-29: no revenue" data-val="0" title="2027-05-29" style="background: rgb(33, 38, 45);"></div><div class="hm-cell" data-tip="2027-05-30: no revenue" data-val="0" title="2027-05-30" style="background: rgb(33, 38, 45);"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hm-legend">
+    <span>Less</span>
+    <div class="leg-cell" style="background:var(--empty)"></div>
+    <div class="leg-cell" style="background:var(--green1)"></div>
+    <div class="leg-cell" style="background:var(--green2)"></div>
+    <div class="leg-cell" style="background:var(--green3)"></div>
+    <div class="leg-cell" style="background:var(--green4)"></div>
+    <span>More</span>
+  </div>
+  <p class="last-updated" id="last-updated"></p>
+</div>
+
+<div class="card">
+  <div class="card-label">REVENUE LOG</div>
+  <table>
+    <thead><tr><th>Date</th><th>Amount</th><th>Note</th><th style="text-align:right">Running total</th></tr></thead>
+    <tbody id="log-body"></tbody>
+  </table>
+  <p id="no-entries" style="font-size: 13px; color: var(--hint); padding: 10px 0px; display: block;">No entries loaded yet.</p>
+</div>
+
+<script>
+const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmt(n) {
+  return '€' + Math.round(n).toLocaleString('de-DE');
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n').map(l => l.trim()).filter(l => l);
+  if (lines.length < 2) return [];
+  const header = lines[0].toLowerCase().split(',').map(h => h.trim().replace(/"/g,''));
+  const di = header.findIndex(h => h.includes('date'));
+  const ai = header.findIndex(h => h.includes('amount') || h.includes('eur') || h.includes('value'));
+  const ni = header.findIndex(h => h.includes('note') || h.includes('description') || h.includes('client'));
+  if (di < 0 || ai < 0) return [];
+  const entries = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(',').map(c => c.trim().replace(/"/g,''));
+    const date = cols[di] || '';
+    const amount = parseFloat((cols[ai] || '').replace(/[^0-9.]/g,''));
+    const note = ni >= 0 ? (cols[ni] || '') : '';
+    if (date && !isNaN(amount) && amount > 0) {
+      entries.push({ date, amount: Math.round(amount), note });
+    }
+  }
+  return entries.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function renderMetrics(entries) {
+  const total = entries.reduce((s, e) => s + e.amount, 0);
+  const pct = Math.min(100, (total / TARGET) * 100);
+  document.getElementById('m-total').textContent = fmt(total);
+  document.getElementById('m-pct').textContent = pct.toFixed(1) + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  const now = new Date();
+  const mk = now.toISOString().slice(0,7);
+  const monthTotal = entries.filter(e => e.date.startsWith(mk)).reduce((s,e) => s+e.amount, 0);
+  document.getElementById('m-month').textContent = fmt(monthTotal);
+  document.getElementById('m-month-name').textContent = now.toLocaleString('en-GB',{month:'long',year:'numeric'});
+  if (entries.length > 0) {
+    const first = new Date(entries[0].date + 'T00:00:00');
+    const days = Math.max(1, (now - first) / 86400000);
+    document.getElementById('m-rate').textContent = fmt((total / days) * 365) + '/yr';
+  } else {
+    document.getElementById('m-rate').textContent = '—';
+  }
+}
+
+function renderLog(entries) {
+  const tbody = document.getElementById('log-body');
+  const noEl = document.getElementById('no-entries');
+  if (entries.length === 0) { tbody.innerHTML = ''; noEl.style.display = 'block'; return; }
+  noEl.style.display = 'none';
+  let running = 0;
+  tbody.innerHTML = [...entries].reverse().map(e => {
+    running; // compute forward
+  }).join('');
+  let run2 = 0;
+  tbody.innerHTML = entries.map(e => {
+    run2 += e.amount;
+    const d = new Date(e.date + 'T00:00:00');
+    const ds = d.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+    return `<tr>
+      <td>${ds}</td>
+      <td class="amount-cell">${fmt(e.amount)}</td>
+      <td>${e.note || '—'}</td>
+      <td class="running-cell">${fmt(run2)}</td>
+    </tr>`;
+  }).reverse().join('');
+}
+
+function renderHeatmap(entries) {
+  const byDay = {};
+  entries.forEach(e => { byDay[e.date] = (byDay[e.date] || 0) + e.amount; });
+  const maxVal = Math.max(1, ...Object.values(byDay).concat([0]));
+  const isDark = matchMedia('(prefers-color-scheme:dark)').matches;
+  const colors = isDark
+    ? ['#21262D','#0D2B0D','#3B6D11','#97C459','#C0DD97']
+    : ['#E8E4DA','#EAF3DE','#97C459','#3B6D11','#173404'];
+
+  function getColor(val) {
+    if (!val) return colors[0];
+    const r = val / maxVal;
+    if (r < 0.1) return colors[1];
+    if (r < 0.35) return colors[2];
+    if (r < 0.65) return colors[3];
+    return colors[4];
+  }
+
+  const start = new Date(START + 'T00:00:00');
+  const end = new Date(END + 'T00:00:00');
+  const padStart = new Date(start);
+  const dow = padStart.getDay();
+  padStart.setDate(padStart.getDate() - (dow === 0 ? 6 : dow - 1));
+
+  const grid = document.getElementById('hm-grid');
+  grid.innerHTML = '';
+  let cur = new Date(padStart);
+  while (cur <= end) {
+    const iso = cur.toISOString().slice(0,10);
+    const inRange = cur >= start && cur <= end;
+    const val = byDay[iso] || 0;
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell';
+    cell.style.background = inRange ? getColor(val) : 'transparent';
+    if (inRange) {
+      cell.setAttribute('data-tip', iso + (val ? ': ' + fmt(val) : ': no revenue'));
+      cell.setAttribute('data-val', val);
+      cell.title = iso + (val ? ': ' + fmt(val) : '');
+    }
+    grid.appendChild(cell);
+    cur.setDate(cur.getDate() + 1);
+    if (cur > new Date(end.getTime() + 14 * 86400000)) break;
+  }
+
+  const mEl = document.getElementById('hm-months');
+  mEl.innerHTML = '';
+  let wk = new Date(padStart), lastM = -1, colW = 0;
+  while (wk <= end) {
+    if (wk.getDay() === 1 || colW === 0) {
+      if (wk >= start && wk.getMonth() !== lastM) {
+        const span = document.createElement('span');
+        span.style.cssText = `min-width:${colW === 0 ? 0 : (colW * 14)}px;display:inline-block;`;
+        mEl.appendChild(span);
+        const lbl = document.createElement('span');
+        lbl.textContent = MONTHS_SHORT[wk.getMonth()];
+        lbl.style.cssText = 'display:inline-block;min-width:42px;';
+        mEl.appendChild(lbl);
+        lastM = wk.getMonth();
+        colW = 0;
+      }
+      colW++;
+    }
+    wk.setDate(wk.getDate() + 1);
+  }
+}
+
+async function loadData() {
+  const bar = document.getElementById('status-bar');
+  const setupBox = document.getElementById('setup-box');
+
+  if (!CSV_URL || CSV_URL.trim() === '') {
+    setupBox.style.display = 'block';
+    bar.style.display = 'flex';
+    bar.className = 'status-bar status-err';
+    bar.innerHTML = '<i>⚙</i> Not configured — see setup instructions below. Showing empty tracker.';
+    renderMetrics([]);
+    renderLog([]);
+    renderHeatmap([]);
+    return;
+  }
+
+  setupBox.style.display = 'none';
+  bar.style.display = 'flex';
+  bar.className = 'status-bar status-ok';
+  bar.innerHTML = '<span class="spinner"></span> Loading data from Google Sheets…';
+
+  try {
+    const cacheBust = '&t=' + Date.now();
+    const url = CSV_URL.includes('?') ? CSV_URL + '&output=csv' + cacheBust : CSV_URL + '?output=csv' + cacheBust;
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const text = await r.text();
+    const entries = parseCSV(text);
+    if (entries.length === 0) {
+      bar.className = 'status-bar status-err';
+      bar.innerHTML = '⚠ Sheet loaded but no valid rows found. Check columns are named Date, Amount, Note.';
+    } else {
+      bar.className = 'status-bar status-ok';
+      bar.innerHTML = '✓ ' + entries.length + ' entries loaded from Google Sheets';
+    }
+    renderMetrics(entries);
+    renderLog(entries);
+    renderHeatmap(entries);
+    document.getElementById('last-updated').textContent = 'Last fetched: ' + new Date().toLocaleTimeString();
+  } catch (err) {
+    bar.className = 'status-bar status-err';
+    bar.innerHTML = '⚠ Could not load data: ' + err.message + '. Make sure the sheet is published publicly as CSV.';
+    renderMetrics([]);
+    renderLog([]);
+    renderHeatmap([]);
+  }
+}
+
+loadData();
+</script>
+
+
+</body></html>

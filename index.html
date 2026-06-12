@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProblemSolving.Works — Péter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0f14;
+      --bg2:      #141720;
+      --bg3:      #1c2030;
+      --accent:   #f5a623;
+      --accent2:  #e8913a;
+      --text:     #f0f2f7;
+      --muted:    #8a90a4;
+      --border:   #252a3a;
+      --radius:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1rem; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--accent); text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #000 !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-block;
+      background: rgba(245,166,35,0.12);
+      color: var(--accent);
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 100px;
+      border: 1px solid rgba(245,166,35,0.28);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+      max-width: 820px; margin-bottom: 1.4rem;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--muted); font-size: 1.1rem;
+      max-width: 540px; margin-bottom: 2.4rem;
+    }
+
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+
+    .btn-primary {
+      background: var(--accent); color: #000;
+      padding: 0.85rem 2rem; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      padding: 0.85rem 2rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); }
+
+    .video-hero {
+      width: 100%; max-width: 900px;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 32px 90px rgba(0,0,0,0.55);
+    }
+    .video-hero iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .label {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+
+    .sec-title {
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .sec-sub {
+      color: var(--muted); font-size: 1rem;
+      max-width: 540px; margin-bottom: 2.8rem;
+    }
+
+    /* ── VIDEO GRID ── */
+    .sec-videos { background: var(--bg2); }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .vcard {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .vcard:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+    .vcard-thumb { aspect-ratio: 16/9; overflow: hidden; }
+    .vcard-thumb iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    .vcard-body { padding: 1rem 1.2rem 1.3rem; }
+    .vcard-body h3 { font-size: 0.92rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.35rem; }
+    .vcard-body p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── ABOUT ── */
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1.3fr;
+      gap: 4rem; align-items: center;
+    }
+
+    .about-photo {
+      aspect-ratio: 4/5; background: var(--bg3);
+      border-radius: var(--radius); border: 1px solid var(--border);
+      overflow: hidden; display: flex; align-items: center;
+      justify-content: center; color: var(--muted); font-size: 0.85rem;
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .about-copy h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .about-copy h2 em { font-style: normal; color: var(--accent); }
+
+    .about-copy p {
+      color: var(--muted); font-size: 0.97rem;
+      line-height: 1.75; margin-bottom: 0.9rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.4rem 0; }
+    .tag {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.78rem;
+      padding: 0.32rem 0.8rem; border-radius: 100px;
+    }
+
+    /* ── CTA ── */
+    .sec-cta { background: var(--bg2); }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .cta-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem 1.8rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cta-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .cta-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+    .cta-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.6rem; }
+
+    .cta-card a {
+      display: inline-block; background: var(--accent); color: #000;
+      padding: 0.6rem 1.4rem; border-radius: 6px;
+      font-weight: 700; font-size: 0.85rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-card a:hover { background: var(--accent2); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 2rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        background: var(--bg); padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border); gap: 1.2rem;
+      }
+      .nav-links.open { display: flex; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo  { aspect-ratio: 3/2; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ProblemSolving.Works</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#videos">Learn Free</a></li>
+    <li><a href="#work-with-me" class="nav-cta">Work With Me</a></li>
+  </ul>
+  <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="pill">Problem Solving · Strategy · Results</div>
+  <h1>Most Problems Are <span>Solved Wrong</span><br>Before They're Solved</h1>
+  <p>I help professionals and organisations stop firefighting and start thinking clearly — with frameworks built across industries and cultures.</p>
+  <div class="btn-row">
+    <a href="#work-with-me" class="btn-primary">Work With Me</a>
+    <a href="#videos" class="btn-ghost">Watch Free Content</a>
+  </div>
+  <div class="video-hero">
+    <!-- ✏️ Replace VIDEO_ID with your YouTube video ID -->
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- SECONDARY VIDEOS -->
+<section class="sec-videos" id="videos">
+  <div class="container">
+    <div class="label">Free Lessons</div>
+    <h2 class="sec-title">Go Deeper</h2>
+    <p class="sec-sub">Short, practical episodes on how to think through complexity — from the quality floor to the boardroom.</p>
+    <div class="video-grid">
+
+      <div class="vcard">
+        <div class="vcard-thumb">
+          <!-- ✏️ Replace VIDEO_ID_2 -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_2?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vcard-body">
+          <h3>Why Most Root Cause Analysis Fails</h3>
+          <p>The hidden assumption that kills good problem-solving teams.</p>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-thumb">
+          <!-- ✏️ Replace VIDEO_ID_3 -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vcard-body">
+          <h3>The 3-Layer Problem Map</h3>
+          <p>A simple framework you can use in any meeting, in any culture.</p>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-thumb">
+          <!-- ✏️ Replace VIDEO_ID_4 -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_4?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vcard-body">
+          <h3>When the Problem Is the People</h3>
+          <p>Drawing on psychology and quality management to navigate human complexity.</p>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-thumb">
+          <!-- ✏️ Replace VIDEO_ID_5 -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_5?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vcard-body">
+          <h3>Cross-Cultural Problem Solving</h3>
+          <p>What working across 4 continents taught me about framing problems differently.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-photo">
+        <!-- ✏️ Replace with: <img src="peter.jpg" alt="Péter"> -->
+        Your photo here
+      </div>
+      <div class="about-copy">
+        <div class="label">About Péter</div>
+        <h2>I've Spent 20+ Years <em>Inside the Problem</em></h2>
+        <p>I came up through automotive quality and compliance — where getting it wrong costs lives and millions. Then I spent years in mental health practice, learning how humans actually think, resist, and change under pressure.</p>
+        <p>Today I work with professionals and organisations worldwide — from Budapest to Dubai, Nairobi to Shanghai — helping them solve the problems that keep coming back.</p>
+        <p>The domain is <strong style="color:var(--text)">problemsolving.works</strong>. The name is the pitch.</p>
+        <div class="tags">
+          <span class="tag">Automotive Quality</span>
+          <span class="tag">Systems Thinking</span>
+          <span class="tag">Human Behaviour</span>
+          <span class="tag">Cross-Cultural</span>
+          <span class="tag">Compliance</span>
+          <span class="tag">Coaching</span>
+        </div>
+        <a href="#work-with-me" class="btn-primary">See How We Can Work Together</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec-cta" id="work-with-me">
+  <div class="container">
+    <div class="label">Work With Me</div>
+    <h2 class="sec-title">Pick Your Starting Point</h2>
+    <p class="sec-sub">Whether you want to learn, get coached, or bring me into your organisation — there's a clear path forward.</p>
+    <div class="cta-grid">
+
+      <div class="cta-card">
+        <div class="icon">🎓</div>
+        <h3>Online Course</h3>
+        <p>Self-paced frameworks I use with global clients. Learn to solve problems that stay solved.</p>
+        <!-- ✏️ Replace # with your course link -->
+        <a href="#">Join the Course</a>
+      </div>
+
+      <div class="cta-card">
+        <div class="icon">🧭</div>
+        <h3>1:1 Coaching</h3>
+        <p>A focused engagement to work through a specific challenge or build your problem-solving capability.</p>
+        <!-- ✏️ Replace # with your booking link -->
+        <a href="#">Book a Call</a>
+      </div>
+
+      <div class="cta-card">
+        <div class="icon">🏢</div>
+        <h3>Teams &amp; Organisations</h3>
+        <p>Workshops, training programmes, or embedded consulting for teams hitting the same walls repeatedly.</p>
+        <!-- ✏️ Replace # with your contact link -->
+        <a href="#">Get in Touch</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Péter &nbsp;·&nbsp;
+    <a href="mailto:peters@problemsolving.works">peters@problemsolving.works</a>
+    &nbsp;·&nbsp;
+    <a href="https://problemsolving.works">problemsolving.works</a>
+  </p>
+</footer>
+
+</body>
+</html>

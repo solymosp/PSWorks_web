@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///Users/peters/Downloads/PSWorks_Brand_Bible.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS Works — Brand Graphic Bible v1</title>
+<style>
+  :root {
+    --dark:#0E1E30; --navy:#1B3A5C; --teal:#2E7D82; --gold:#C8922A;
+    --red:#B03A2E; --offwhite:#F5F4F0; --paper:#E8E4DA; --mid:#4A4A4A;
+    --teal-light:#E1F5EE; --gold-light:#FEF9E7; --red-light:#FDEDEC;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Helvetica Neue',Arial,sans-serif; background:var(--offwhite); color:var(--dark); }
+
+  /* ── Navigation ── */
+  .nav { background:var(--dark); padding:16px 40px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+  .nav-logo { font-size:18px; font-weight:700; color:white; letter-spacing:.12em; }
+  .nav-sub { font-size:11px; color:#6B8FA8; letter-spacing:.1em; }
+  .nav-badge { font-size:10px; font-weight:600; color:var(--gold); border:1px solid var(--gold); padding:3px 8px; letter-spacing:.1em; }
+
+  /* ── Sections ── */
+  .section { padding:60px 40px; border-bottom:1px solid #D0CEC8; }
+  .section:last-child { border-bottom:none; }
+  .section-dark { background:var(--dark); color:white; }
+  .section-paper { background:var(--paper); }
+  .section-label { font-size:10px; font-weight:700; letter-spacing:.2em; color:#9A9890; margin-bottom:12px; }
+  .section-title { font-size:32px; font-weight:700; margin-bottom:8px; }
+  .section-sub { font-size:14px; color:var(--mid); line-height:1.6; max-width:600px; margin-bottom:40px; }
+  .section-dark .section-label { color:#4A6A80; }
+  .section-dark .section-sub { color:#8AAAB8; }
+
+  /* ── Color palette ── */
+  .palette { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; }
+  .swatch { border-radius:8px; overflow:hidden; }
+  .swatch-color { height:80px; }
+  .swatch-info { padding:10px 12px; background:white; border:1px solid #E0DED8; border-top:none; border-radius:0 0 8px 8px; }
+  .swatch-name { font-size:12px; font-weight:700; color:var(--dark); }
+  .swatch-hex { font-size:11px; color:#777; font-family:'Courier New',monospace; }
+  .swatch-use { font-size:10px; color:#999; margin-top:2px; }
+
+  /* ── Typography ── */
+  .type-specimen { margin-bottom:32px; padding:24px; background:white; border-radius:8px; border:1px solid #E0DED8; }
+  .type-label { font-size:10px; font-weight:700; letter-spacing:.15em; color:#999; margin-bottom:8px; }
+  .type-sample-display { font-size:48px; font-weight:700; line-height:1.1; color:var(--dark); letter-spacing:-.02em; }
+  .type-sample-h1 { font-size:32px; font-weight:700; color:var(--dark); }
+  .type-sample-body { font-size:16px; line-height:1.7; color:var(--mid); max-width:500px; }
+  .type-sample-mono { font-family:'Courier New',monospace; font-size:14px; color:var(--teal); background:var(--teal-light); padding:8px 12px; border-radius:4px; display:inline-block; margin-top:8px; }
+  .type-sample-caption { font-size:11px; font-weight:700; letter-spacing:.12em; color:#999; }
+
+  /* ── Logo proposals ── */
+  .logo-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+  .logo-card { background:white; border:1px solid #E0DED8; border-radius:8px; padding:32px 24px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .logo-card-dark { background:var(--dark); border-color:var(--navy); }
+  .logo-card-label { font-size:10px; font-weight:700; letter-spacing:.15em; color:#999; text-align:center; }
+  .logo-card-dark .logo-card-label { color:#4A6A80; }
+
+  /* ── Visual language ── */
+  .vl-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .vl-example { background:white; border:1px solid #E0DED8; border-radius:8px; padding:24px; min-height:180px; }
+  .vl-example-dark { background:var(--dark); border-color:var(--navy); }
+  .vl-title { font-size:11px; font-weight:700; letter-spacing:.12em; color:#999; margin-bottom:16px; }
+  .vl-example-dark .vl-title { color:#4A6A80; }
+
+  /* ── Sample applications ── */
+  .app-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+
+  /* Annotation style */
+  .annotation-demo { position:relative; }
+  .ann-box { border:1px solid #E0DED8; border-radius:4px; padding:12px; font-size:13px; color:var(--mid); display:inline-block; }
+  .ann-label { font-size:9px; font-weight:700; letter-spacing:.12em; color:#999; position:absolute; top:-18px; left:0; }
+  .ann-line { position:absolute; width:60px; height:1px; background:#CCC; top:50%; right:-62px; }
+  .ann-callout { position:absolute; right:-180px; top:50%; transform:translateY(-50%); font-size:11px; color:var(--teal); font-family:'Courier New',monospace; background:var(--teal-light); padding:4px 8px; border-radius:3px; white-space:nowrap; }
+
+  /* Failure mode card */
+  .fm-card { border-left:3px solid var(--red); padding:12px 16px; background:white; border-radius:0 6px 6px 0; }
+  .fm-label { font-size:9px; font-weight:700; letter-spacing:.15em; color:var(--red); margin-bottom:4px; }
+  .fm-title { font-size:14px; font-weight:700; color:var(--dark); margin-bottom:4px; }
+  .fm-body { font-size:12px; color:var(--mid); line-height:1.5; }
+  .fm-tag { display:inline-block; font-size:9px; font-weight:700; letter-spacing:.1em; padding:2px 7px; border-radius:3px; margin-top:6px; }
+  .fm-high { background:#FDEDEC; color:var(--red); }
+  .fm-med { background:var(--gold-light); color:var(--gold); }
+
+  /* Diagnostic readout */
+  .diagnostic { font-family:'Courier New',monospace; font-size:12px; line-height:1.8; color:var(--teal); background:var(--dark); padding:20px; border-radius:6px; }
+  .diag-label { color:#4A6A80; }
+  .diag-value { color:#9FE1CB; }
+  .diag-alert { color:var(--gold); }
+  .diag-fail { color:#F09595; }
+
+  /* Quote/aphorism style */
+  .aphorism { font-size:22px; font-weight:700; color:white; line-height:1.35; padding:32px; background:var(--dark); border-radius:8px; position:relative; }
+  .aphorism::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--gold); border-radius:8px 0 0 8px; }
+
+  /* War Room card */
+  .wr-card { background:var(--dark); border-radius:8px; padding:28px; color:white; }
+  .wr-card-label { font-size:9px; font-weight:700; letter-spacing:.2em; color:var(--gold); margin-bottom:8px; }
+  .wr-card-title { font-size:20px; font-weight:700; color:white; margin-bottom:4px; }
+  .wr-card-sub { font-size:12px; color:#6B8FA8; margin-bottom:20px; }
+  .wr-divider { height:1px; background:#1B3A5C; margin:16px 0; }
+  .wr-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .wr-key { font-size:11px; color:#6B8FA8; }
+  .wr-val { font-size:11px; font-weight:700; color:white; }
+
+  /* Grid pattern */
+  .grid-bg { background-image: linear-gradient(rgba(46,125,130,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(46,125,130,0.06) 1px, transparent 1px); background-size:24px 24px; }
+
+  @media (max-width:600px) { .vl-grid,.app-grid { grid-template-columns:1fr; } .section { padding:40px 20px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div>
+    <div class="nav-logo">PS WORKS</div>
+    <div class="nav-sub">problemsolving.works</div>
+  </div>
+  <div class="nav-badge">BRAND BIBLE v1 · 2026</div>
+</nav>
+
+<!-- ── INTRO ─────────────────────────────────────────────────────────────── -->
+<section class="section section-dark grid-bg">
+  <div class="section-label">BRAND DIRECTION</div>
+  <h1 class="section-title" style="color:white;font-size:44px;">Engineering aesthetics<br>applied to cognition.</h1>
+  <p class="section-sub">Precise. Direct. Dark where it needs to be. The visual language is technical — not decorative. Every element earns its place or is removed. No softening. No gradients that flatter. Just structure.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;">
+    <div style="background:#1B3A5C;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:700;color:#9FE1CB;letter-spacing:.1em;">FAILURE MODE THINKING</div>
+    <div style="background:#1B3A5C;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;">NO DIPLOMATIC SOFTENING</div>
+    <div style="background:#1B3A5C;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:700;color:#8AAAB8;letter-spacing:.1em;">WAR ROOM</div>
+  </div>
+</section>
+
+<!-- ── COLOUR SYSTEM ──────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">COLOUR SYSTEM</div>
+  <h2 class="section-title">Palette</h2>
+  <p class="section-sub">Six primaries. Dark as dominant. Gold as signal. Red for findings. No pastels, no gradients except where encoding physical data.</p>
+  <div class="palette">
+    <div class="swatch"><div class="swatch-color" style="background:#0E1E30;"></div><div class="swatch-info"><div class="swatch-name">Deep Dark</div><div class="swatch-hex">#0E1E30</div><div class="swatch-use">Primary background, dominant surfaces</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#1B3A5C;"></div><div class="swatch-info"><div class="swatch-name">Navy</div><div class="swatch-hex">#1B3A5C</div><div class="swatch-use">Secondary dark, borders on dark bg</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#2E7D82;"></div><div class="swatch-info"><div class="swatch-name">Teal</div><div class="swatch-hex">#2E7D82</div><div class="swatch-use">Primary accent, methodology language</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#C8922A;"></div><div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#C8922A</div><div class="swatch-use">Signal colour — high value, emphasis</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#B03A2E;"></div><div class="swatch-info"><div class="swatch-name">Alert Red</div><div class="swatch-hex">#B03A2E</div><div class="swatch-use">Failure modes, critical findings, warnings</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F5F4F0;border:1px solid #E0DED8;"></div><div class="swatch-info"><div class="swatch-name">Off-White</div><div class="swatch-hex">#F5F4F0</div><div class="swatch-use">Warm white — paper, light surfaces</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#E8E4DA;border:1px solid #D0CCC0;"></div><div class="swatch-info"><div class="swatch-name">Paper</div><div class="swatch-hex">#E8E4DA</div><div class="swatch-use">Background tone — engineering drawing ref</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4A4A4A;"></div><div class="swatch-info"><div class="swatch-name">Graphite</div><div class="swatch-hex">#4A4A4A</div><div class="swatch-use">Body text on light backgrounds</div></div></div>
+  </div>
+  <div style="margin-top:32px;background:var(--dark);border-radius:8px;padding:20px 24px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.15em;color:#4A6A80;margin-bottom:12px;">COLOUR RULES</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="font-size:12px;color:#8AAAB8;">✓ Dark background + gold or teal accent</div>
+      <div style="font-size:12px;color:#8AAAB8;">✓ Off-white background + dark text</div>
+      <div style="font-size:12px;color:#8AAAB8;">✓ Red used only for findings, never decoration</div>
+      <div style="font-size:12px;color:#8AAAB8;">✓ Paper background for document / print contexts</div>
+      <div style="font-size:12px;color:#F09595;">✗ No gradients on brand surfaces</div>
+      <div style="font-size:12px;color:#F09595;">✗ No pastels — nothing that softens</div>
+      <div style="font-size:12px;color:#F09595;">✗ No mixing warm and cool backgrounds</div>
+      <div style="font-size:12px;color:#F09595;">✗ No more than 3 colours in any single composition</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TYPOGRAPHY ─────────────────────────────────────────────────────────── -->
+<section class="section section-paper">
+  <div class="section-label">TYPOGRAPHY</div>
+  <h2 class="section-title">Type System</h2>
+  <p class="section-sub">Primary sans-serif for all running text and headings. Monospace for data, code-like annotations, diagnostic language. No serif — this is not a law firm or a literary magazine.</p>
+  <div class="type-specimen">
+    <div class="type-label">DISPLAY — Inter / Neue Haas Grotesk / Aktiv Grotesk  ·  weight 700  ·  tight tracking</div>
+    <div class="type-sample-display">We untilt you.</div>
+    <div style="margin-top:8px;font-size:14px;color:#999;">Use for: homepage hero, War Room cover, key aphorisms</div>
+  </div>
+  <div class="type-specimen">
+    <div class="type-label">HEADING — same typeface  ·  weight 700  ·  normal tracking</div>
+    <div class="type-sample-h1">The failure mode here is structural, not situational.</div>
+  </div>
+  <div class="type-specimen">
+    <div class="type-label">BODY — same typeface  ·  weight 400  ·  16px / line-height 1.7</div>
+    <div class="type-sample-body">Most hard problems don't crack because of the problem. They crack because of how you're approaching it. Finding the structure is a 90-minute session. Fixing it is a choice you make after.</div>
+  </div>
+  <div class="type-specimen">
+    <div class="type-label">MONOSPACE ACCENT — Courier New / JetBrains Mono  ·  use for: data, callouts, diagnostic language, technical annotations</div>
+    <div class="type-sample-mono">FAILURE_MODE_001 → severity: HIGH → probability: 0.73</div>
+    <div style="margin-top:8px;" class="type-sample-mono">assumption.tested = false → risk: CRITICAL</div>
+  </div>
+  <div class="type-specimen">
+    <div class="type-label">LABEL / OVERLINE — weight 700  ·  10–11px  ·  letter-spacing 0.15–0.20em  ·  ALL CAPS</div>
+    <div class="type-sample-caption">FAILURE MODE ANALYSIS  ·  WAR ROOM SESSION  ·  ASSUMPTION INVENTORY</div>
+    <div style="margin-top:8px;" class="type-sample-caption">PS WORKS  ·  PROBLEMSOLVING.WORKS  ·  MAY 2026</div>
+  </div>
+</section>
+
+<!-- ── LOGO MARKS ─────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">LOGO PROPOSALS</div>
+  <h2 class="section-title">Mark Concepts — v1</h2>
+  <p class="section-sub">Four directions. None are final. All are built from the same vocabulary: precision, structure, targeting, diagnosis. The wordmark is always "PS WORKS" in caps, weight 700, tight tracking.</p>
+  <div class="logo-grid">
+
+    <!-- Concept 1: Crosshair -->
+    <div class="logo-card">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="#1B3A5C" stroke-width="1.5"></circle>
+        <circle cx="60" cy="60" r="4" fill="#C8922A"></circle>
+        <line x1="20" y1="60" x2="47" y2="60" stroke="#1B3A5C" stroke-width="1.5"></line>
+        <line x1="73" y1="60" x2="100" y2="60" stroke="#1B3A5C" stroke-width="1.5"></line>
+        <line x1="60" y1="20" x2="60" y2="47" stroke="#1B3A5C" stroke-width="1.5"></line>
+        <line x1="60" y1="73" x2="60" y2="100" stroke="#1B3A5C" stroke-width="1.5"></line>
+        <text x="60" y="65" text-anchor="middle" font-family="Helvetica Neue,Arial" font-size="13" font-weight="700" fill="#1B3A5C" letter-spacing="1">PS</text>
+      </svg>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--dark);text-align:center;">PS WORKS</div>
+        <div style="font-size:9px;color:#999;text-align:center;letter-spacing:.1em;margin-top:2px;">PROBLEMSOLVING.WORKS</div>
+      </div>
+      <div class="logo-card-label">CONCEPT A — CROSSHAIR<br>Targeting, precision, finding the point</div>
+    </div>
+
+    <!-- Concept 2: Monogram block -->
+    <div class="logo-card logo-card-dark">
+      <svg width="120" height="80" viewBox="0 0 120 80">
+        <rect x="8" y="8" width="104" height="64" rx="3" fill="none" stroke="#2E7D82" stroke-width="1"></rect>
+        <text x="60" y="50" text-anchor="middle" font-family="Helvetica Neue,Arial" font-size="36" font-weight="700" fill="white" letter-spacing="-1">PSW</text>
+        <line x1="8" y1="58" x2="112" y2="58" stroke="#2E7D82" stroke-width="0.5"></line>
+        <text x="60" y="68" text-anchor="middle" font-family="Helvetica Neue,Arial" font-size="7" font-weight="700" fill="#4A6A80" letter-spacing="3">WORKS</text>
+      </svg>
+      <div class="logo-card-label" style="color:#4A6A80;">CONCEPT B — STAMP BLOCK<br>Authority, precision, mark of certification</div>
+    </div>
+
+    <!-- Concept 3: Diagonal slash -->
+    <div class="logo-card">
+      <svg width="120" height="80" viewBox="0 0 120 80">
+        <line x1="55" y1="8" x2="35" y2="72" stroke="#C8922A" stroke-width="2.5" stroke-linecap="round"></line>
+        <text x="12" y="52" font-family="Helvetica Neue,Arial" font-size="32" font-weight="700" fill="#1B3A5C" letter-spacing="-1">P</text>
+        <text x="58" y="52" font-family="Helvetica Neue,Arial" font-size="32" font-weight="700" fill="#1B3A5C" letter-spacing="-1">S</text>
+        <text x="10" y="72" font-family="Helvetica Neue,Arial" font-size="8" font-weight="700" fill="#9A9890" letter-spacing="2.5">WORKS</text>
+      </svg>
+      <div class="logo-card-label">CONCEPT C — SLASH MARK<br>Cutting through, incision, surgical</div>
+    </div>
+
+    <!-- Concept 4: Diagnostic signal -->
+    <div class="logo-card logo-card-dark">
+      <svg width="160" height="60" viewBox="0 0 160 60">
+        <polyline points="5,30 25,30 35,10 45,50 55,30 70,30 80,18 90,42 100,30 130,30" fill="none" stroke="#2E7D82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <line x1="130" y1="30" x2="155" y2="30" stroke="#2E7D82" stroke-width="2" stroke-linecap="round"></line>
+        <circle cx="130" cy="30" r="3" fill="#C8922A"></circle>
+        <text x="5" y="56" font-family="Courier New,monospace" font-size="8" fill="#4A6A80" letter-spacing="1">PS·WORKS // DIAGNOSTIC</text>
+      </svg>
+      <div class="logo-card-label" style="color:#4A6A80;">CONCEPT D — DIAGNOSTIC SIGNAL<br>EKG-style, monitoring, finding the anomaly</div>
+    </div>
+
+  </div>
+  <div style="margin-top:24px;padding:16px 20px;background:#F2F4F7;border-radius:6px;font-size:13px;color:var(--mid);">
+    <strong>Recommendation:</strong> Concept A (Crosshair) or Concept D (Diagnostic Signal) best match the brand register. Concept A is more versatile as an icon mark. Concept D is more distinctive and memorable. Both need vector refinement before use. Take to a designer with this brief.
+  </div>
+</section>
+
+<!-- ── VISUAL LANGUAGE ────────────────────────────────────────────────────── -->
+<section class="section section-paper">
+  <div class="section-label">VISUAL LANGUAGE</div>
+  <h2 class="section-title">Patterns and Principles</h2>
+  <p class="section-sub">Six recurring visual patterns that define the PS Works aesthetic. Each maps to the brand register: precision, structure, diagnosis, non-softening.</p>
+  <div class="vl-grid">
+
+    <div class="vl-example">
+      <div class="vl-title">ANNOTATION STYLE — callout labels with leader lines</div>
+      <div style="position:relative;margin-top:24px;margin-left:20px;">
+        <div style="border:1px solid #E0DED8;border-radius:4px;padding:14px;font-size:13px;color:var(--mid);display:inline-block;position:relative;">
+          Strategic plan assumption #3
+          <div style="position:absolute;top:-20px;left:0;font-size:9px;font-weight:700;letter-spacing:.1em;color:#999;">MENTAL GOLEM</div>
+        </div>
+        <div style="margin-top:8px;font-family:&#39;Courier New&#39;,monospace;font-size:11px;color:var(--red);background:var(--red-light);padding:6px 10px;border-radius:3px;display:inline-block;">→ no evidence base · probability of failure: 0.71</div>
+      </div>
+    </div>
+
+    <div class="vl-example vl-example-dark">
+      <div class="vl-title">DIAGNOSTIC READOUT — monospace, technical, precise</div>
+      <div class="diagnostic" style="font-size:11px;padding:14px;border-radius:4px;">
+        <span class="diag-label">// FAILURE MODE SCAN</span><br>
+        <span class="diag-label">system:</span> <span class="diag-value">go-to-market strategy v2</span><br>
+        <span class="diag-label">assumption_01:</span> <span class="diag-fail">UNTESTED · HIGH RISK</span><br>
+        <span class="diag-label">assumption_02:</span> <span class="diag-value">verified · acceptable</span><br>
+        <span class="diag-label">assumption_03:</span> <span class="diag-alert">MENTAL GOLEM · review</span><br>
+        <span class="diag-label">skewism_index:</span> <span class="diag-fail">0.64 → above threshold</span>
+      </div>
+    </div>
+
+    <div class="vl-example">
+      <div class="vl-title">FAILURE MODE CARD — left border as severity signal</div>
+      <div class="fm-card" style="margin-top:8px;">
+        <div class="fm-label">FAILURE MODE #002</div>
+        <div class="fm-title">Channel dependency — single referral source</div>
+        <div class="fm-body">All current pipeline originates from one network node. Network node exits or disengages: pipeline collapses to zero with no recovery path.</div>
+        <div><span class="fm-tag fm-high">SEVERITY: HIGH</span> <span class="fm-tag fm-med">PROBABILITY: MED</span></div>
+      </div>
+    </div>
+
+    <div class="vl-example vl-example-dark">
+      <div class="vl-title">APHORISM FORMAT — gold left border, dark background</div>
+      <div class="aphorism" style="font-size:16px;padding:20px 20px 20px 28px;margin-top:8px;">
+        You test your assumptions or your assumptions will test you.
+      </div>
+    </div>
+
+    <div class="vl-example">
+      <div class="vl-title">GRID UNDERLAY — subtle engineering drawing reference</div>
+      <div class="grid-bg" style="height:100px;border-radius:4px;border:1px solid #E0DED8;display:flex;align-items:center;justify-content:center;margin-top:8px;">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);">Content sits on the grid — always.</div>
+      </div>
+    </div>
+
+    <div class="vl-example vl-example-dark">
+      <div class="vl-title">STRIKETHROUGH — removing the mental golem</div>
+      <div style="margin-top:16px;line-height:2.2;">
+        <div style="font-size:14px;color:#6B8FA8;text-decoration:line-through;">This will work because we believe in the product.</div>
+        <div style="font-size:14px;color:#9FE1CB;">This will work if assumption #3 survives testing.</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#4A6A80;margin-top:8px;">MENTAL GOLEM REMOVED → STRUCTURE VISIBLE</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SAMPLE APPLICATIONS ─────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">APPLICATIONS</div>
+  <h2 class="section-title">In Use</h2>
+  <p class="section-sub">How the brand system applies to the most common surfaces: LinkedIn post header, War Room card, diagnostic card, aphorism post.</p>
+  <div class="app-grid">
+
+    <!-- LinkedIn post header -->
+    <div style="background:var(--dark);border-radius:8px;overflow:hidden;">
+      <div style="background:#1B3A5C;padding:16px 20px;display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;">PS</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:white;">Péter Solymos</div>
+          <div style="font-size:11px;color:#6B8FA8;">PS Works · problemsolving.works</div>
+        </div>
+      </div>
+      <div style="padding:20px;font-size:15px;font-weight:700;color:white;line-height:1.4;">You test your assumptions or your assumptions will test you.</div>
+      <div style="padding:0 20px 16px;font-size:13px;color:#8AAAB8;line-height:1.6;">Most plans don't fail because of external factors. They fail because of internal assumptions that were never tested.</div>
+      <div style="padding:10px 20px;border-top:1px solid #1B3A5C;display:flex;gap:8px;">
+        <span style="font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--teal);background:#1B3A5C;padding:3px 8px;border-radius:3px;">#FAILUREMODES</span>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--gold);background:#1B3A5C;padding:3px 8px;border-radius:3px;">#WARROOM</span>
+      </div>
+    </div>
+
+    <!-- War Room card -->
+    <div class="wr-card">
+      <div class="wr-card-label">WAR ROOM COHORT</div>
+      <div class="wr-card-title">Session 4 · June 2026</div>
+      <div class="wr-card-sub">4 participants · 2 problems selected · Budapest</div>
+      <div class="wr-divider"></div>
+      <div class="wr-row"><span class="wr-key">Format</span><span class="wr-val">2 × 35 min + rapid scan</span></div>
+      <div class="wr-row"><span class="wr-key">Facilitator</span><span class="wr-val">Rotating · T. Kovács</span></div>
+      <div class="wr-row"><span class="wr-key">Law in focus</span><span class="wr-val">Law III — Name it or leave it</span></div>
+      <div class="wr-divider"></div>
+      <div style="font-size:11px;color:#4A6A80;font-style:italic;">No diplomatic softening. The finding is the finding.</div>
+    </div>
+
+    <!-- Diagnostic card -->
+    <div style="border:1px solid #E0DED8;border-radius:8px;overflow:hidden;background:white;">
+      <div style="background:var(--dark);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.15em;color:#4A6A80;">ROBUSTNESS DIAGNOSTIC</div>
+        <div style="font-size:10px;font-weight:700;color:var(--red);">2 FINDINGS</div>
+      </div>
+      <div style="padding:16px;">
+        <div class="fm-card" style="margin-bottom:10px;">
+          <div class="fm-label">FAILURE MODE #001</div>
+          <div class="fm-title">Pricing assumption untested</div>
+          <div class="fm-body">€3,200/month positioned against no comparable in the market. No anchoring. Buyer has no reference.</div>
+          <div><span class="fm-tag fm-high">HIGH</span></div>
+        </div>
+        <div class="fm-card" style="border-color:var(--gold);">
+          <div class="fm-label" style="color:var(--gold);">STRUCTURAL NOTE #001</div>
+          <div class="fm-title">Single channel dependency</div>
+          <div class="fm-body">All initial pipeline from one network. No parallel path building.</div>
+          <div><span class="fm-tag fm-med">MEDIUM</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── WHAT WE'RE NOT ─────────────────────────────────────────────────────── -->
+<section class="section section-dark">
+  <div class="section-label">BRAND DIRECTION</div>
+  <h2 class="section-title" style="color:white;">What we are not.</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px;">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--teal);margin-bottom:16px;">WE ARE NOT</div>
+      <div style="font-size:13px;color:#8AAAB8;line-height:2.2;">
+        <span style="color:#F09595;margin-right:8px;">✗</span>A life coach with a beautiful Instagram<br>
+        <span style="color:#F09595;margin-right:8px;">✗</span>A management consultant with a framework deck<br>
+        <span style="color:#F09595;margin-right:8px;">✗</span>A business therapist who validates feelings<br>
+        <span style="color:#F09595;margin-right:8px;">✗</span>A thought leader with inspirational quotes<br>
+        <span style="color:#F09595;margin-right:8px;">✗</span>Warm, rounded, pastel, soft, approachable<br>
+        <span style="color:#F09595;margin-right:8px;">✗</span>For everyone
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--gold);margin-bottom:16px;">WE ARE</div>
+      <div style="font-size:13px;color:#8AAAB8;line-height:2.2;">
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>An engineer who reads cognitive psychology<br>
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>A design review for decisions that matter<br>
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>The outside view your org chart cannot provide<br>
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>Precise, direct, dark where it needs to be<br>
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>For people who want the real finding<br>
+        <span style="color:#9FE1CB;margin-right:8px;">✓</span>Not for everyone — and that is the positioning
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEXT STEPS ─────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">VERSION 1 NOTES</div>
+  <h2 class="section-title">Next Steps for Brand Development</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px;">
+    <div style="padding:20px;background:#F2F4F7;border-radius:8px;border-left:3px solid var(--teal);">
+      <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.1em;margin-bottom:8px;">PRIORITY 1</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">Logo refinement</div>
+      <div style="font-size:12px;color:var(--mid);">Take Concept A or D to a designer. Build SVG mark, horizontal wordmark, and square icon version. Test at 16px and 200px.</div>
+    </div>
+    <div style="padding:20px;background:#F2F4F7;border-radius:8px;border-left:3px solid var(--teal);">
+      <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.1em;margin-bottom:8px;">PRIORITY 2</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">Typography decision</div>
+      <div style="font-size:12px;color:var(--mid);">License Inter (free) or Neue Haas Grotesk (paid). Pair with JetBrains Mono for monospace elements. Set the type scale in CSS variables.</div>
+    </div>
+    <div style="padding:20px;background:#F2F4F7;border-radius:8px;border-left:3px solid var(--gold);">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">PRIORITY 3</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">Website component library</div>
+      <div style="font-size:12px;color:var(--mid);">Build the failure mode card, diagnostic readout, aphorism block, and annotation style as reusable Framer or Webflow components.</div>
+    </div>
+    <div style="padding:20px;background:#F2F4F7;border-radius:8px;border-left:3px solid var(--gold);">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">PRIORITY 4</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;">LinkedIn visual templates</div>
+      <div style="font-size:12px;color:var(--mid);">Three Canva or Figma templates: aphorism post, failure mode analysis post, case study header. All using this colour system.</div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--dark);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;">
+  <div>
+    <div style="font-size:13px;font-weight:700;color:white;letter-spacing:.1em;">PS WORKS</div>
+    <div style="font-size:11px;color:#4A6A80;">Brand Graphic Bible · Version 1 · May 2026</div>
+  </div>
+  <div style="font-size:11px;color:#4A6A80;">problemsolving.works · For internal use and designer briefing</div>
+</footer>
+
+
+
+</body></html>
