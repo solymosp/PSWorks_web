@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProblemSolving.Works — Get Better at Getting Better</title>
+  <title>Get out of Firefighting — ProblemSolving.Works</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -150,41 +150,16 @@
       max-width: 540px; margin-bottom: 2.8rem;
     }
 
-    /* ── VIDEO GRID ── */
-    .sec-videos { background: var(--bg2); }
+    /* ── REINFORCEMENT / CONTENT ── */
+    .sec-content { background: var(--bg2); }
 
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.4rem;
-    }
-
-    .vcard {
-      display: block;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
-      color: inherit; text-decoration: none;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .vcard:hover { transform: translateY(-4px); border-color: var(--accent); }
-
-    .vcard-thumb { aspect-ratio: 16/9; overflow: hidden; }
-    .vcard-thumb iframe { width: 100%; height: 100%; border: none; display: block; }
-    .vcard-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .vcard-body { padding: 1rem 1.2rem 1.3rem; }
-    .vcard-body h3 { font-size: 0.92rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.35rem; }
-    .vcard-body p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
-
-    /* ── ABOUT ── */
     .about-inner {
       display: grid; grid-template-columns: 1fr 1.3fr;
       gap: 4rem; align-items: center;
     }
 
     .about-photo {
-      aspect-ratio: 4/5; background: var(--bg3);
+      aspect-ratio: 3/2; background: var(--bg3);
       border-radius: var(--radius); border: 1px solid var(--border);
       overflow: hidden; display: flex; align-items: center;
       justify-content: center; color: var(--muted); font-size: 0.85rem;
@@ -203,46 +178,6 @@
       line-height: 1.75; margin-bottom: 0.9rem;
     }
 
-    .cta-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.4rem; }
-    .nav-left { display: flex; align-items: center; gap: 0.75rem; }
-    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
-    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.4rem 0; }
-    .tag {
-      background: var(--bg3); border: 1px solid var(--border);
-      color: var(--muted); font-size: 0.78rem;
-      padding: 0.32rem 0.8rem; border-radius: 100px;
-    }
-
-    /* ── CTA ── */
-    .sec-cta { background: var(--bg2); }
-
-    .cta-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.4rem;
-    }
-
-    .cta-card {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 2rem 1.8rem;
-      text-align: center;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .cta-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-
-    .cta-card .icon { font-size: 2rem; margin-bottom: 1rem; }
-    .cta-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .cta-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.6rem; }
-
-    .cta-card a {
-      display: inline-block; background: var(--accent); color: #000;
-      padding: 0.6rem 1.4rem; border-radius: 6px;
-      font-weight: 700; font-size: 0.85rem; text-decoration: none;
-      transition: background 0.2s;
-    }
-    .cta-card a:hover { background: var(--accent2); }
-
     /* ── FOOTER ── */
     footer {
       padding: 2.5rem 2rem; border-top: 1px solid var(--border);
@@ -250,6 +185,8 @@
     }
     footer a { color: var(--accent); text-decoration: none; }
     .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
+    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
     footer .linkedin-link { display: inline-flex; }
 
     /* ── RESPONSIVE ── */
@@ -270,15 +207,24 @@
     }
   </style>
 
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2446193');
+</script>
+<!-- End MailerLite Universal -->
+
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">ProblemSolving.Works</a>
+  <a href="../index.html" class="nav-logo">ProblemSolving.Works</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
-    <li><a href="#videos">Minicourses</a></li>
+    <li><a href="../index.html#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
   </ul>
   <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -287,75 +233,34 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <h1>Problem-Solving is the <span>Most Neglected</span><br>and Missing Skill in Business.</h1>
-  <p>I explain.</p>
+  <h1>Get out of <span>Firefighting</span></h1>
+  <p>Too many fires, never enough time - a strategy that can break this cycle.</p>
   <div class="video-hero">
-    <!-- ✏️ Replace VIDEO_ID with your YouTube video ID -->
-    <script src="https://fast.wistia.com/player.js" async></script><script src="https://fast.wistia.com/embed/lskbsr71kr.js" async type="module"></script><style>wistia-player[media-id='lskbsr71kr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lskbsr71kr/swatch'); display: block; filter: blur(5px); padding-top:55.94%; }</style> <wistia-player media-id="lskbsr71kr" aspect="1.7877094972067038"></wistia-player>
+    <script src="https://fast.wistia.com/player.js" async></script>
+	<script src="https://fast.wistia.com/embed/y02jiamy8h.js" async type="module"></script>
+	<style>wistia-player[media-id='y02jiamy8h']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/y02jiamy8h/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+	<wistia-player media-id="y02jiamy8h" aspect="1.7777777777777777"></wistia-player>
   </div>
   <div class="btn-row">
-    <a href="#work-with-me" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
+    <a href="../index.html#work-with-me" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
   </div>
  </section>
 
-<script async data-uid="e01f1d2044" src="https://problemsolvingworks.kit.com/e01f1d2044/index.js"></script>
-
-<!-- SECONDARY VIDEOS -->
-<section class="sec-videos" id="videos">
-  <div class="container">
-    <div class="label">Education</div>
-    <h2 class="sec-title">Minicourses</h2>
-    	<p class="sec-sub">Short cases and typical problem-solving gaps that you can learn from and implement in your own work.</p>
-	<div class="video-grid">
-
-      <a class="vcard" href="mc/firefighting.html" target=_blank>
-        <div class="vcard-thumb">
-		  <img src="01thumbnail.png" alt="Firefighting">
-        </div>
-        <div class="vcard-body">
-          <h3>How to get out of firefighting</h3>
-          <p>Too many fires, never enough time - what can help to get out of this cycle?</p>
-        </div>
-      </a>
-
-      <a class="vcard" href="mc/bad-fix.html" target=_blank>
-        <div class="vcard-thumb">
-		  <img src="02thumbnail.png" alt="BadFix">
-        </div>
-        <div class="vcard-body">
-          <h3>Fixes that break the system</h3>
-          <p>Unchecked good-looking 'solutions' can cause severe harm. How to catch them early?</p>
-        </div>
-      </a>
-
-      <a class="vcard" href="mc/real-costs.html" target=_blank>
-        <div class="vcard-thumb">
-          <img src="03thumbnail.png" alt="RealCosts">
-        </div>
-        <div class="vcard-body">
-          <h3>Hidden costs of problems</h3>
-          <p>Companies never account for all costs of their problems. How and why?</p>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
+<!-- REINFORCEMENT CONTENT -->
+<section class="sec-content" id="deep-dive">
   <div class="container">
     <div class="about-inner">
       <div class="about-photo">
-        <!-- ✏️ Replace with: <img src="peters.webp" alt="Peter"> -->
-        <img src="peter.webp" alt="Peter">
+        <!-- ✏️ Replace with a supporting image, e.g. <img src="firefighting-diagram.jpg" alt="..."> -->
+        Image placeholder
       </div>
       <div class="about-copy">
-        <div class="label">About Peter</div>
-        <h2>Automotive Auditor <em>&amp; Hypnotherapist</em></h2>
-        <p>Business problems are both systemic and human in origin. I've worked worldwide in quality and compliance management, and was entrusted to practise hypnotherapy as a personal commitment, so I've seen both sides.</p>
-        <p>Today I aim to serve this field with quality of education, review of individual cases, and consulting to design problem-solving systems that outperform the usual. My quest is to cut through the noise that plagues this field and to serve with clear, concise, actionable information, rooted in practice.</p>
-		<p>Problem-solving is one of the top value business skills, yet remains wildly undereducated. The rate of managers trained in structured problem solving worldwide can be estimated at around 10%. It is one of the most obvious sleeper differentiator for any manager who has no depth of experience and wants to outperform competition.</p>
+        <div class="label">Breaking the Cycle</div>
+        <h2>Why Firefighting <em>Never Ends</em></h2>
+        <!-- ✏️ Replace with final copy -->
+        <p>Placeholder paragraph — expand on why reactive management traps teams in a loop of urgent-but-not-important work, and what it costs over time.</p>
+        <p>Placeholder paragraph — outline the strategy or framework taught in the video, in plain terms.</p>
+        <p>Placeholder paragraph — close with the shift in mindset or practice the viewer should walk away with.</p>
       </div>
     </div>
   </div>
@@ -364,8 +269,8 @@
 <!-- FOOTER -->
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
-    <a href="tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="../tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
+	<a href="../tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
     <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>

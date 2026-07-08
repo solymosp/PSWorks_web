@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Information — ProblemSolving.Works</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0f14;
+      --bg2:      #141720;
+      --bg3:      #1c2030;
+      --accent:   #f5a623;
+      --accent2:  #e8913a;
+      --text:     #f0f2f7;
+      --muted:    #8a90a4;
+      --border:   #252a3a;
+      --radius:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px; font-weight: 700; letter-spacing: 3px;
+      line-height: 1.2; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #000 !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .label {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+
+    .sec-title {
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .sec-sub {
+      color: var(--muted); font-size: 1rem;
+      max-width: 540px; margin-bottom: 2.8rem;
+    }
+
+    /* ── LEGAL PAGE HEAD ── */
+    .page-head { padding: 9rem 2rem 1rem; text-align: center; }
+
+    /* ── LEGAL CONTENT ── */
+    .legal-content { max-width: 760px; margin: 0 auto; }
+    .legal-content h2 {
+      font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em;
+      margin: 2.2rem 0 0.8rem;
+    }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content p, .legal-content li {
+      color: var(--muted); font-size: 0.95rem; line-height: 1.75;
+      margin-bottom: 0.9rem;
+    }
+    .legal-content ul { padding-left: 1.3rem; margin-bottom: 0.9rem; }
+    .legal-content strong { color: var(--text); }
+    .updated { color: var(--muted); font-size: 0.82rem; margin-bottom: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 2rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
+    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
+    footer .linkedin-link { display: inline-flex; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        background: var(--bg); padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border); gap: 1.2rem;
+      }
+      .nav-links.open { display: flex; }
+    }
+  </style>
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">ProblemSolving.Works</a>
+</nav>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="label">Legal</div>
+  <h1 class="sec-title">Privacy Information</h1>
+  <p class="updated"><!-- ✏️ Update date whenever the text changes -->Last updated: July 8, 2026</p>
+</section>
+
+<!-- CONTENT -->
+<section style="padding-top:1rem;">
+  <div class="container">
+    <div class="legal-content">
+      <!-- ✏️ Placeholder text below — replace with your actual, reviewed Privacy Information (GDPR-aware, since you're EU-based) -->
+      <h2>1. What This Covers</h2>
+      <p>This page explains what personal data ProblemSolving.Works collects when you use this Site, why, and what rights you have over it under the EU General Data Protection Regulation (GDPR).</p>
+
+      <h2>2. Data We Collect</h2>
+      <ul>
+        <li>Contact details you submit voluntarily (e.g. name, email) when booking a diagnostic call or subscribing.</li>
+        <li>Usage data collected automatically via analytics and embedded video (Wistia) while browsing the Site.</li>
+        <li>Email engagement data via our mailing list provider.</li>
+      </ul>
+
+      <h2>3. Third-Party Services</h2>
+      <p><!-- ✏️ Confirm this list matches what's actually embedded on the Site -->We use MailerLite for email communications, Wistia for video hosting, and Kit for opt-in forms. Each may set its own cookies or process data under its own privacy policy.</p>
+
+      <h2>4. Why We Process Your Data</h2>
+      <p>To respond to enquiries, deliver requested content, schedule diagnostic calls, and — where you've opted in — send relevant updates.</p>
+
+      <h2>5. Your Rights</h2>
+      <p>Under GDPR, you have the right to access, correct, delete, or export your data, and to withdraw consent at any time. To exercise these rights, contact us using the details below.</p>
+
+      <h2>6. Data Retention</h2>
+      <p><!-- ✏️ Fill in your actual retention practice -->We retain personal data only as long as necessary for the purposes described above, or as required by law.</p>
+
+      <h2>7. Contact</h2>
+      <p><!-- ✏️ Add preferred contact email --> Questions about this Privacy Information can be sent via the contact details on the Site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
+    <a href="terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
+	<a href="privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+  </p>
+</footer>
+
+</body>
+</html>
