@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dots preview</title>
+  <style>
+    body {
+      background: #0d0f14;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Variant 1: all three pulse, staggered -->
+  <div style="display:flex; justify-content:center; gap:10px;">
+    <span class="ps-dot" style="animation-delay:0s;"></span>
+    <span class="ps-dot" style="animation-delay:0.2s;"></span>
+    <span class="ps-dot" style="animation-delay:0.4s;"></span>
+  </div>
+  <style>
+    .ps-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3a2f1a;
+      display: inline-block;
+      animation: ps-dot-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes ps-dot-pulse {
+      0%, 80%, 100% { background: #3a2f1a; }
+      40% { background: #f5a623; }
+    }
+  </style>
+
+  <!-- Variant 2: walking dot, one lit at a time, left to right -->
+  <div style="display:flex; justify-content:center; gap:10px;">
+    <span class="ps-walk-dot" style="animation-delay:0s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:1s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:2s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:3s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:4s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:5s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:6s;"></span>
+    <span class="ps-walk-dot" style="animation-delay:7s;"></span>
+  </div>
+  <style>
+    .ps-walk-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #1a1a1f;
+      display: inline-block;
+      animation: ps-walk 8s linear infinite;
+    }
+    @keyframes ps-walk {
+      0%      { background: #e8913a; }
+      12.48%  { background: #e8913a; }
+      12.5%   { background: #1a1a1f; }
+      100%    { background: #1a1a1f; }
+    }
+  </style>
+
+  <!-- Variant 2b: same, but 7 dots for comparison -->
+  <div style="display:flex; justify-content:center; gap:10px;">
+    <span class="ps-walk-dot-7" style="animation-delay:0s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:1s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:2s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:3s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:4s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:5s;"></span>
+    <span class="ps-walk-dot-7" style="animation-delay:6s;"></span>
+  </div>
+  <style>
+    .ps-walk-dot-7 {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #1a1a1f;
+      display: inline-block;
+      animation: ps-walk-7 7s linear infinite;
+    }
+    @keyframes ps-walk-7 {
+      0%      { background: #e8913a; }
+      14.26%  { background: #e8913a; }
+      14.28%  { background: #1a1a1f; }
+      100%    { background: #1a1a1f; }
+    }
+  </style>
+
+</body>
+</html>
