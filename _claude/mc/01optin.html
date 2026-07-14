@@ -100,7 +100,6 @@
         <img src="../img/peter.webp" alt="Peter">
       </div>
       <div>
-        <div class="logo">ProblemSolving.Works</div>
 
         <!-- MailerLite embedded form — full raw snippet (updated version: forced checkbox, new success copy) -->
         <style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1783523");</style>
@@ -662,7 +661,6 @@
                 <div class="ml-form-embedContent" style=" ">
 
                     <h4>FREE Minicourse</h4>
-                    <p>Enter your information below for instant access to your Minicourse:</p>
 
                 </div>
                 <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2446193/forms/192562308142073358/subscribe" data-code="" method="post" target="_blank">
@@ -693,7 +691,7 @@
                       <label class="checkbox">
                         <input type="checkbox">
                         <div class="label-description">
-                          <p><span style="font-size: 12px;"></span>Yes, by requesting this free minicourse, I'll also get value-packed problem-solving tips from PS Works. I can unsubscribe any time. We value your <a builder-link-id="-1" href="https://problemsolving.works/tp/privacy.html" target="_blank">privacy</a>.</p>
+                          <p><span style="font-size: 12px;">Yes, by requesting this free minicourse, I'll also get value-packed problem-solving tips from PS Works. I can unsubscribe any time. We value your <a builder-link-id="-1" href="https://problemsolving.works/tp/privacy.html" target="_blank">privacy</a>.</span></p>
                         </div>
                       </label>
 
@@ -707,14 +705,15 @@
                       <span class="sr-only">Loading...</span>
                     </button>
                   </div>
+                  <div style="text-align:center; font-family:'Montserrat', sans-serif; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#4a4d5a;">ProblemSolving.Works</div>
                   <input type="hidden" name="anticsrf" value="true">
                 </form>
               </div>
 
               <div class="ml-form-successBody row-success" style="display: none">
                 <div class="ml-form-successContent">
-                    <h4>Great Move! 👍</h4>
-                    <p>We are redirecting you to your Minicourse.<br></p>
+                    <h4>You're in.</h4>
+                    <p>Redirecting...</p>
                 </div>
 
                 <!-- 7-dot walking loader — fills the wait before the redirect fires -->
@@ -734,14 +733,14 @@
 
         <script>
           // Success callback — MailerLite calls this when the form submits successfully.
-          // Extended to auto-redirect to the minicourse page 5 seconds after showing the success message.
+          // Extended to auto-redirect to the firefighting page 5 seconds after showing the success message.
           function ml_webform_success_43583861() {
             var $ = ml_jQuery || jQuery;
             $('.ml-subscribe-form-43583861 .row-success').show();
             $('.ml-subscribe-form-43583861 .row-form').hide();
 
             setTimeout(function() {
-              window.location.href = 'firefighting.html';
+              window.location.href = '01firefighting.html';
             }, 5000);
           }
         </script>
