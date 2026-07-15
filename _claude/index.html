@@ -287,7 +287,7 @@
 <nav>
   <a href="#" class="nav-logo">ProblemSolving.Works</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
+    <li><a href="#" class="nav-cta" onclick="openScheduling(event)">Diagnostic Call (FREE)</a></li>
     <li><a href="#videos">Minicourses</a></li>
   </ul>
   <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -304,7 +304,7 @@
     <script src="https://fast.wistia.com/player.js" async></script><script src="https://fast.wistia.com/embed/lskbsr71kr.js" async type="module"></script><style>wistia-player[media-id='lskbsr71kr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lskbsr71kr/swatch'); display: block; filter: blur(5px); padding-top:55.94%; }</style> <wistia-player media-id="lskbsr71kr" aspect="1.7877094972067038"></wistia-player>
   </div>
   <div class="btn-row">
-    <a href="#work-with-me" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
+    <a href="#" class="btn-primary" onclick="openScheduling(event)">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
   </div>
  </section>
 
@@ -318,9 +318,9 @@
     	<p class="sec-sub">Short cases and typical problem-solving gaps that you can learn from and implement in your own work.</p>
 	<div class="video-grid">
 
-      <a class="vcard" href="mc/firefighting.html" target=_blank>
+      <a class="vcard" href="mc/01optin.html" target=_blank>
         <div class="vcard-thumb">
-		  <img src="01thumbnail.png" alt="Firefighting">
+		  <img src="img/01thumbnail.png" alt="Firefighting">
         </div>
         <div class="vcard-body">
           <h3>How to get out of firefighting</h3>
@@ -328,9 +328,9 @@
         </div>
       </a>
 
-      <a class="vcard" href="mc/bad-fix.html" target=_blank>
+      <a class="vcard" href="mc/02optin.html" target=_blank>
         <div class="vcard-thumb">
-		  <img src="02thumbnail.png" alt="BadFix">
+		  <img src="img/02thumbnail.png" alt="BadFix">
         </div>
         <div class="vcard-body">
           <h3>Fixes that break the system</h3>
@@ -338,9 +338,9 @@
         </div>
       </a>
 
-      <a class="vcard" href="mc/real-costs.html" target=_blank>
+      <a class="vcard" href="mc/03optin.html" target=_blank>
         <div class="vcard-thumb">
-          <img src="03thumbnail.png" alt="RealCosts">
+          <img src="img/03thumbnail.png" alt="RealCosts">
         </div>
         <div class="vcard-body">
           <h3>Hidden costs of problems</h3>
@@ -358,7 +358,7 @@
     <div class="about-inner">
       <div class="about-photo">
         <!-- ✏️ Replace with: <img src="peters.webp" alt="Peter"> -->
-        <img src="peter.webp" alt="Peter">
+        <img src="img/peter.webp" alt="Peter">
       </div>
       <div class="about-copy">
         <div class="label">About Peter</div>
@@ -375,10 +375,74 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
-    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+	<a href="tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;
+	<a href="tp/cookies.html" target="_blank">Cookies</a> &nbsp;·&nbsp;
+	<a href="tp/imprint.html" target="_blank">Imprint</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
+
+<!-- Google Calendar Appointment Scheduling begin -->
+<!-- Custom lightbox instead of Google's own scheduling button: Google's widget renders
+     itself as a fixed-position floating button that can't be reliably hidden or proxied
+     from outside (it isn't a plain <button>/<a> in the light DOM). This iframe modal loads
+     the same booking URL (the ?gv=true param is the iframe-embeddable view) so our existing
+     orange buttons keep their styling and just trigger this popup on click. -->
+<style>
+  #gcal-modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+    z-index: 9999; align-items: center; justify-content: center; padding: 2rem;
+  }
+  #gcal-modal-panel {
+    position: relative; width: 100%; max-width: 1300px; height: 90vh;
+    background: #fff; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  #gcal-modal-close {
+    position: absolute; top: 10px; right: 10px; z-index: 2;
+    background: #101114; color: #fff; border: none;
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    font-size: 20px; line-height: 1;
+  }
+  #gcal-modal-iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  @media (max-width: 640px) {
+    #gcal-modal-overlay { padding: 0; }
+    #gcal-modal-panel { max-width: 100%; height: 100dvh; border-radius: 0; }
+    #gcal-modal-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 22px; }
+  }
+</style>
+<div id="gcal-modal-overlay">
+  <div id="gcal-modal-panel">
+    <button id="gcal-modal-close" aria-label="Close scheduling popup">&times;</button>
+    <iframe id="gcal-modal-iframe" title="Book an appointment" src=""></iframe>
+  </div>
+</div>
+<script>
+  var GCAL_SCHEDULING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2o19IRFLjRM2S30EhX3xKU1CV9lUCXZ8HJy_niNgmg2OIS6VtChYPDRYTEBFOYLVDAe2nSFr3n?gv=true';
+
+  function openScheduling(e) {
+    if (e) e.preventDefault();
+    document.getElementById('gcal-modal-iframe').src = GCAL_SCHEDULING_URL;
+    document.getElementById('gcal-modal-overlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeScheduling() {
+    document.getElementById('gcal-modal-overlay').style.display = 'none';
+    document.getElementById('gcal-modal-iframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('gcal-modal-close').addEventListener('click', closeScheduling);
+  document.getElementById('gcal-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeScheduling();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeScheduling();
+  });
+</script>
+<!-- end Google Calendar Appointment Scheduling -->
 
 </body>
 </html>
