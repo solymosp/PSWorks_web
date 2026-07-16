@@ -120,6 +120,7 @@
     .btn-ghost:hover { border-color: var(--muted); }
 
     .video-hero {
+      position: relative;
       width: 100%; max-width: 900px;
       aspect-ratio: 16/9;
       border-radius: var(--radius); overflow: hidden;
@@ -127,6 +128,20 @@
       box-shadow: 0 32px 90px rgba(0,0,0,0.55);
     }
     .video-hero iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    .video-consent-note {
+      display: none;
+      position: absolute; inset: 0; z-index: 5;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 1.5rem; pointer-events: none;
+    }
+    .video-consent-note p {
+      background: rgba(13,15,20,0.8); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.9rem 1.4rem;
+      font-size: 0.88rem; line-height: 1.55; color: var(--text);
+      max-width: 320px; margin: 0;
+    }
+    wistia-player[media-id='y02jiamy8h']:not(:defined) ~ .video-consent-note { display: flex; }
 
     /* ── SECTIONS ── */
     section { padding: 5rem 2rem; }
@@ -230,6 +245,7 @@
     <!-- Wistia player scripts load only after cookie consent — see consent script near end of <body>. -->
 	<style>wistia-player[media-id='y02jiamy8h']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/y02jiamy8h/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
 	<wistia-player media-id="y02jiamy8h" aspect="1.7777777777777777"></wistia-player>
+    <div class="video-consent-note"><p>This video needs your cookie consent to load. <a href="#" onclick="reopenCookieBanner(event)" style="color: var(--accent); pointer-events: auto;">Click here to review and choose</a>.</p></div>
   </div>
   <div class="btn-row">
     <a href="../index.html?openBooking=1" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
@@ -260,8 +276,7 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="../tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="../tp/legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;
-	<a href="#" onclick="reopenCookieBanner(event)">Cookie settings</a> &nbsp;·&nbsp;&nbsp; </span>
+	<a href="../tp/legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;&nbsp; </span>
     <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
@@ -269,28 +284,33 @@
 <!-- Cookie consent begin -->
 <style>
   #cookie-banner {
-    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
-    background: #141720; border-top: 1px solid #252a3a; padding: 1.1rem 1.5rem;
+    display: none; position: fixed; inset: 0; z-index: 10000;
+    background: rgba(8,9,13,0.72);
+    align-items: center; justify-content: center; padding: 1.5rem;
   }
   #cookie-banner .cb-inner {
-    max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
-    justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    max-width: 460px; width: 100%; margin: 0 auto;
+    background: #141720; border: 1px solid #252a3a; border-radius: 14px;
+    padding: 1.9rem 1.9rem 1.7rem; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    display: flex; flex-direction: column; gap: 1.3rem; text-align: center;
   }
-  #cookie-banner p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #8a90a4; max-width: 720px; }
+  #cookie-banner p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: #8a90a4; }
   #cookie-banner a { color: #f5a623; }
-  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.7rem; }
+  #cookie-decline, #cookie-accept {
+    flex: 1; padding: 0.65rem 1.2rem; border-radius: 6px; font-size: 0.88rem;
+    font-weight: 700; cursor: pointer; font-family: inherit;
+  }
   #cookie-decline {
-    background: transparent; border: 1px solid #252a3a; color: #8a90a4;
-    padding: 0.55rem 1.1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+    background: transparent; border: 1px solid #3a4058; color: #c7cbdb;
   }
   #cookie-accept {
-    background: #f5a623; border: none; color: #000; font-weight: 700;
-    padding: 0.55rem 1.3rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+    background: #f5a623; border: 1px solid #f5a623; color: #000;
   }
 </style>
 <div id="cookie-banner">
   <div class="cb-inner">
-    <p>This site uses cookies so our video delivery and email tools work, and so we can respond to you properly. No 3rd party advertising or cross-site trackers - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
+    <p>This site needs cookies so our video delivery and email tools work, and so we can respond to you properly. No advertising cookies or cross-site trackers throughout this site - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
     <div class="cb-actions">
       <button id="cookie-decline" type="button">Decline</button>
       <button id="cookie-accept" type="button">Accept</button>
@@ -317,7 +337,7 @@
     }
 
     function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
-    function showBanner() { document.getElementById('cookie-banner').style.display = 'block'; }
+    function showBanner() { document.getElementById('cookie-banner').style.display = 'flex'; }
 
     window.reopenCookieBanner = function(e) {
       if (e) e.preventDefault();
@@ -327,7 +347,7 @@
     var consent = localStorage.getItem(CONSENT_KEY);
     if (consent === 'accepted') {
       loadTrackers();
-    } else if (consent !== 'declined') {
+    } else {
       showBanner();
     }
 
@@ -337,7 +357,7 @@
       loadTrackers();
     });
     document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.setItem(CONSENT_KEY, 'declined');
+      localStorage.removeItem(CONSENT_KEY);
       hideBanner();
     });
   })();

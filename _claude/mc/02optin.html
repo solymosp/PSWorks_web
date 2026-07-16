@@ -747,28 +747,33 @@
 <!-- Cookie consent begin -->
 <style>
   #cookie-banner {
-    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
-    background: #141720; border-top: 1px solid #252a3a; padding: 1.1rem 1.5rem;
+    display: none; position: fixed; inset: 0; z-index: 10000;
+    background: rgba(8,9,13,0.72);
+    align-items: center; justify-content: center; padding: 1.5rem;
   }
   #cookie-banner .cb-inner {
-    max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
-    justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    max-width: 460px; width: 100%; margin: 0 auto;
+    background: #141720; border: 1px solid #252a3a; border-radius: 14px;
+    padding: 1.9rem 1.9rem 1.7rem; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    display: flex; flex-direction: column; gap: 1.3rem; text-align: center;
   }
-  #cookie-banner p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #8a90a4; max-width: 720px; }
+  #cookie-banner p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: #8a90a4; }
   #cookie-banner a { color: #f5a623; }
-  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.7rem; }
+  #cookie-decline, #cookie-accept {
+    flex: 1; padding: 0.65rem 1.2rem; border-radius: 6px; font-size: 0.88rem;
+    font-weight: 700; cursor: pointer; font-family: inherit;
+  }
   #cookie-decline {
-    background: transparent; border: 1px solid #252a3a; color: #8a90a4;
-    padding: 0.55rem 1.1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+    background: transparent; border: 1px solid #3a4058; color: #c7cbdb;
   }
   #cookie-accept {
-    background: #f5a623; border: none; color: #000; font-weight: 700;
-    padding: 0.55rem 1.3rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+    background: #f5a623; border: 1px solid #f5a623; color: #000;
   }
 </style>
 <div id="cookie-banner">
   <div class="cb-inner">
-    <p>This site uses cookies so our video delivery and email tools work, and so we can respond to you properly. No 3rd party advertising or cross-site trackers - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
+    <p>This site needs cookies so our video delivery and email tools work, and so we can respond to you properly. No advertising cookies or cross-site trackers throughout this site - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
     <div class="cb-actions">
       <button id="cookie-decline" type="button">Decline</button>
       <button id="cookie-accept" type="button">Accept</button>
@@ -792,7 +797,7 @@
     }
 
     function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
-    function showBanner() { document.getElementById('cookie-banner').style.display = 'block'; }
+    function showBanner() { document.getElementById('cookie-banner').style.display = 'flex'; }
 
     window.reopenCookieBanner = function(e) {
       if (e) e.preventDefault();
@@ -802,7 +807,7 @@
     var consent = localStorage.getItem(CONSENT_KEY);
     if (consent === 'accepted') {
       loadTrackers();
-    } else if (consent !== 'declined') {
+    } else {
       showBanner();
     }
 
@@ -812,7 +817,7 @@
       loadTrackers();
     });
     document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.setItem(CONSENT_KEY, 'declined');
+      localStorage.removeItem(CONSENT_KEY);
       hideBanner();
     });
   })();

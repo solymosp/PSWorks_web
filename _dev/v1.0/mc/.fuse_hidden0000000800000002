@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hidden Costs of Problems — ProblemSolving.Works</title>
+  <title>Fixes That Break the System — ProblemSolving.Works</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,9 +71,10 @@
 
     /* ── HERO ── */
     .hero {
+      min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 8.5rem 2rem 4rem;
+      padding: 7rem 2rem 5rem;
       text-align: center;
     }
 
@@ -120,7 +121,6 @@
     .btn-ghost:hover { border-color: var(--muted); }
 
     .video-hero {
-      position: relative;
       width: 100%; max-width: 900px;
       aspect-ratio: 16/9;
       border-radius: var(--radius); overflow: hidden;
@@ -128,20 +128,6 @@
       box-shadow: 0 32px 90px rgba(0,0,0,0.55);
     }
     .video-hero iframe { width: 100%; height: 100%; border: none; display: block; }
-
-    .video-consent-note {
-      display: none;
-      position: absolute; inset: 0; z-index: 5;
-      align-items: center; justify-content: center; text-align: center;
-      padding: 1.5rem; pointer-events: none;
-    }
-    .video-consent-note p {
-      background: rgba(13,15,20,0.8); border: 1px solid var(--border);
-      border-radius: 8px; padding: 0.9rem 1.4rem;
-      font-size: 0.88rem; line-height: 1.55; color: var(--text);
-      max-width: 320px; margin: 0;
-    }
-    wistia-player[media-id='lqmqk5aqnd']:not(:defined) ~ .video-consent-note { display: flex; }
 
     /* ── SECTIONS ── */
     section { padding: 5rem 2rem; }
@@ -199,8 +185,6 @@
     }
     footer a { color: var(--accent); text-decoration: none; }
     .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
-    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
-    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
     footer .linkedin-link { display: inline-flex; }
 
     /* ── RESPONSIVE ── */
@@ -221,7 +205,15 @@
     }
   </style>
 
-<!-- MailerLite Universal (site visitor tracking) is loaded only after cookie consent — see consent script near end of <body>. -->
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2446193');
+</script>
+<!-- End MailerLite Universal -->
 
 </head>
 <body>
@@ -230,7 +222,7 @@
 <nav>
   <a href="../index.html" class="nav-logo">ProblemSolving.Works</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html?openBooking=1" class="nav-cta">Diagnostic Call (FREE)</a></li>
+    <li><a href="../index.html#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
   </ul>
   <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -239,16 +231,16 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <h1>Hidden <span>Costs</span> of Problems</h1>
-  <p>Companies never account for these. Know your numbers.</p>
+  <h1>Fixes That <span>Break the System</span></h1>
+  <p>Explained through a real case.</p>
   <div class="video-hero">
-    <!-- Wistia player scripts load only after cookie consent — see consent script near end of <body>. -->
-	<style>wistia-player[media-id='lqmqk5aqnd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lqmqk5aqnd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
-	<wistia-player media-id="lqmqk5aqnd" aspect="1.7777777777777777"></wistia-player>
-    <div class="video-consent-note"><p>This video needs your cookie consent to load. <a href="#" onclick="reopenCookieBanner(event)" style="color: var(--accent); pointer-events: auto;">Click here to review and choose</a>.</p></div>
+    <script src="https://fast.wistia.com/player.js" async></script>
+	<script src="https://fast.wistia.com/embed/pqpgxw4thx.js" async type="module"></script>
+	<style>wistia-player[media-id='pqpgxw4thx']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/pqpgxw4thx/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+	<wistia-player media-id="pqpgxw4thx" aspect="1.7777777777777777"></wistia-player>
   </div>
   <div class="btn-row">
-    <a href="../index.html?openBooking=1" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
+    <a href="../index.html#work-with-me" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
   </div>
  </section>
 
@@ -257,16 +249,16 @@
   <div class="container">
     <div class="about-inner">
       <div class="about-photo">
-        <!-- ✏️ Replace with a supporting image, e.g. <img src="real-costs-diagram.jpg" alt="..."> -->
+        <!-- ✏️ Replace with a supporting image, e.g. <img src="bad-fix-diagram.jpg" alt="..."> -->
         Image placeholder
       </div>
       <div class="about-copy">
-        <div class="label">Know Your Numbers</div>
-        <h2>The Costs Companies <em>Never Account For</em></h2>
+        <div class="label">Unchecked Solutions</div>
+        <h2>When a Good-Looking Fix <em>Breaks the System</em></h2>
         <!-- ✏️ Replace with final copy -->
-        <p>Placeholder paragraph — name the hidden cost categories (scrap, freight, install, downtime, overtime, hiring...) and why they go untracked.</p>
-        <p>Placeholder paragraph — explain how to surface them before they compound.</p>
-        <p>Placeholder paragraph — close with what changes once the real number is on the table.</p>
+        <p>Placeholder paragraph — explain why a fix that solves the visible symptom can quietly damage the wider system.</p>
+        <p>Placeholder paragraph — walk through the check(s) that catch this before rollout.</p>
+        <p>Placeholder paragraph — close with the practical takeaway for the viewer's own fixes.</p>
       </div>
     </div>
   </div>
@@ -276,93 +268,10 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="../tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="../tp/legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;&nbsp; </span>
-    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+	<a href="../tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
-
-<!-- Cookie consent begin -->
-<style>
-  #cookie-banner {
-    display: none; position: fixed; inset: 0; z-index: 10000;
-    background: rgba(8,9,13,0.72);
-    align-items: center; justify-content: center; padding: 1.5rem;
-  }
-  #cookie-banner .cb-inner {
-    max-width: 460px; width: 100%; margin: 0 auto;
-    background: #141720; border: 1px solid #252a3a; border-radius: 14px;
-    padding: 1.9rem 1.9rem 1.7rem; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-    display: flex; flex-direction: column; gap: 1.3rem; text-align: center;
-  }
-  #cookie-banner p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: #8a90a4; }
-  #cookie-banner a { color: #f5a623; }
-  #cookie-banner .cb-actions { display: flex; gap: 0.7rem; }
-  #cookie-decline, #cookie-accept {
-    flex: 1; padding: 0.65rem 1.2rem; border-radius: 6px; font-size: 0.88rem;
-    font-weight: 700; cursor: pointer; font-family: inherit;
-  }
-  #cookie-decline {
-    background: transparent; border: 1px solid #3a4058; color: #c7cbdb;
-  }
-  #cookie-accept {
-    background: #f5a623; border: 1px solid #f5a623; color: #000;
-  }
-</style>
-<div id="cookie-banner">
-  <div class="cb-inner">
-    <p>This site needs cookies so our video delivery and email tools work, and so we can respond to you properly. No advertising cookies or cross-site trackers throughout this site - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
-    <div class="cb-actions">
-      <button id="cookie-decline" type="button">Decline</button>
-      <button id="cookie-accept" type="button">Accept</button>
-    </div>
-  </div>
-</div>
-<script>
-  (function() {
-    var CONSENT_KEY = 'psw_cookie_consent';
-
-    function loadTrackers() {
-      // MailerLite Universal (site visitor tracking)
-      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-      ml('account', '2446193');
-
-      // Wistia player (video)
-      var w1 = document.createElement('script'); w1.src = 'https://fast.wistia.com/player.js'; w1.async = true;
-      var w2 = document.createElement('script'); w2.src = 'https://fast.wistia.com/embed/lqmqk5aqnd.js'; w2.async = true; w2.type = 'module';
-      document.head.appendChild(w1);
-      document.head.appendChild(w2);
-    }
-
-    function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
-    function showBanner() { document.getElementById('cookie-banner').style.display = 'flex'; }
-
-    window.reopenCookieBanner = function(e) {
-      if (e) e.preventDefault();
-      showBanner();
-    };
-
-    var consent = localStorage.getItem(CONSENT_KEY);
-    if (consent === 'accepted') {
-      loadTrackers();
-    } else {
-      showBanner();
-    }
-
-    document.getElementById('cookie-accept').addEventListener('click', function() {
-      localStorage.setItem(CONSENT_KEY, 'accepted');
-      hideBanner();
-      loadTrackers();
-    });
-    document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.removeItem(CONSENT_KEY);
-      hideBanner();
-    });
-  })();
-</script>
-<!-- Cookie consent end -->
 
 </body>
 </html>
