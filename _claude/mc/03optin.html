@@ -81,15 +81,7 @@
     }
   </style>
 
-<!-- MailerLite Universal -->
-<script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2446193');
-</script>
-<!-- End MailerLite Universal -->
+<!-- MailerLite Universal (site visitor tracking) is loaded only after cookie consent — see consent script near end of <body>. The opt-in form below works regardless of consent choice. -->
 
 </head>
 <body>
@@ -691,7 +683,7 @@
                       <label class="checkbox">
                         <input type="checkbox">
                         <div class="label-description">
-                          <p><span style="font-size: 12px;">Yes, by requesting this free minicourse, I'll also get value-packed problem-solving tips from PS Works. I can unsubscribe any time. We value your <a builder-link-id="-1" href="https://problemsolving.works/tp/privacy.html" target="_blank">privacy</a>.</span></p>
+                          <p><span style="font-size: 12px;">Yes, by requesting this free minicourse, I'll also get value-packed problem-solving tips from PS Works. I can unsubscribe any time. We value your <a builder-link-id="-1" href="https://problemsolving.works/tp/legal.html#privacy" target="_blank">privacy</a>.</span></p>
                         </div>
                       </label>
 
@@ -746,13 +738,86 @@
         </script>
 
         <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
-        <script>
-          fetch("https://assets.mailerlite.com/jsonp/2446193/forms/193005790653580997/takel")
-        </script>
+        <!-- MailerLite impression-tracking pixel ("takel") is gated behind cookie consent, see below. It only records that the form was seen; it does not affect whether the form can be submitted. -->
 
       </div>
     </div>
   </div>
+
+<!-- Cookie consent begin -->
+<style>
+  #cookie-banner {
+    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+    background: #141720; border-top: 1px solid #252a3a; padding: 1.1rem 1.5rem;
+  }
+  #cookie-banner .cb-inner {
+    max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
+    justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  }
+  #cookie-banner p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #8a90a4; max-width: 720px; }
+  #cookie-banner a { color: #f5a623; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  #cookie-decline {
+    background: transparent; border: 1px solid #252a3a; color: #8a90a4;
+    padding: 0.55rem 1.1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+  }
+  #cookie-accept {
+    background: #f5a623; border: none; color: #000; font-weight: 700;
+    padding: 0.55rem 1.3rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+  }
+</style>
+<div id="cookie-banner">
+  <div class="cb-inner">
+    <p>This site uses cookies so our video delivery and email tools work, and so we can respond to you properly. No 3rd party advertising or cross-site trackers - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
+    <div class="cb-actions">
+      <button id="cookie-decline" type="button">Decline</button>
+      <button id="cookie-accept" type="button">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function() {
+    var CONSENT_KEY = 'psw_cookie_consent';
+
+    function loadTrackers() {
+      // MailerLite Universal (site visitor tracking)
+      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+      ml('account', '2446193');
+
+      // MailerLite form impression pixel
+      fetch("https://assets.mailerlite.com/jsonp/2446193/forms/193005790653580997/takel");
+    }
+
+    function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
+    function showBanner() { document.getElementById('cookie-banner').style.display = 'block'; }
+
+    window.reopenCookieBanner = function(e) {
+      if (e) e.preventDefault();
+      showBanner();
+    };
+
+    var consent = localStorage.getItem(CONSENT_KEY);
+    if (consent === 'accepted') {
+      loadTrackers();
+    } else if (consent !== 'declined') {
+      showBanner();
+    }
+
+    document.getElementById('cookie-accept').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      hideBanner();
+      loadTrackers();
+    });
+    document.getElementById('cookie-decline').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      hideBanner();
+    });
+  })();
+</script>
+<!-- Cookie consent end -->
 
 </body>
 </html>

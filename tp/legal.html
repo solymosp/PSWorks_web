@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — ProblemSolving.Works</title>
+  <title>Legal — ProblemSolving.Works</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -92,14 +92,25 @@
 
     /* ── LEGAL PAGE HEAD ── */
     .page-head { padding: 9rem 2rem 1rem; text-align: center; }
+    .jump-links { margin-top: 1.2rem; font-size: 0.9rem; }
+    .jump-links a { color: var(--accent); text-decoration: none; }
+    .jump-links a:hover { text-decoration: underline; }
 
     /* ── LEGAL CONTENT ── */
     .legal-content { max-width: 760px; margin: 0 auto; }
-    .legal-content h2 {
-      font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em;
-      margin: 2.2rem 0 0.8rem;
+    .legal-content .chapter-title {
+      font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 3.5rem 0 1.3rem; padding-top: 2.8rem;
+      border-top: 1px solid var(--border);
+      scroll-margin-top: 6rem;
     }
-    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content .chapter-title.first { margin-top: 0; padding-top: 0; border-top: none; }
+    .legal-content h3 {
+      font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em;
+      margin: 2rem 0 0.7rem; color: var(--text);
+    }
+    .legal-content h3:first-of-type { margin-top: 0; }
     .legal-content p, .legal-content li {
       color: var(--muted); font-size: 0.95rem; line-height: 1.75;
       margin-bottom: 0.9rem;
@@ -145,20 +156,46 @@
 <!-- PAGE HEAD -->
 <section class="page-head">
   <div class="label">Legal</div>
-  <h1 class="sec-title">Privacy Policy</h1>
+  <h1 class="sec-title">Legal</h1>
   <p class="updated">Last updated: July 15, 2026</p>
+  <p class="jump-links"><a href="#impressum">Impressum</a> &nbsp;·&nbsp; <a href="#privacy">Privacy Policy</a> &nbsp;·&nbsp; <a href="#cookies">Cookie Policy</a></p>
 </section>
 
 <!-- CONTENT -->
 <section style="padding-top:1rem;">
   <div class="container">
     <div class="legal-content">
-      <h2>1. Who We Are</h2>
-      <p>This website (problemsolving.works) is operated by <strong>Schindlberger Consulting Kft.</strong> (company registration number 13-09-241252, registered address 2040 Budaörs, Pántlika utca 32., Hungary; EU VAT number HU24272766) and <strong>PS Works FZ-LLC</strong> (licence number 47019934, address VUNE0546, Compass Building, Al Hulaila Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates), operating together under the PS Works brand.</p>
-      <p>Schindlberger Consulting Kft. acts as primary data controller for clients and website visitors based in the European Economic Area (EEA). PS Works FZ-LLC acts as data controller for clients based outside the EEA.</p>
+
+      <!-- ============ IMPRESSUM ============ -->
+      <h2 class="chapter-title first" id="impressum">Impressum</h2>
+
+      <h3>Service Provider</h3>
+      <p>Schindlberger Consulting Korlátolt Felelősségű Társaság<br>
+      Trading as: PS Works<br>
+      Company registration number: 13-09-241252<br>
+      Registered address: 2040 Budaörs, Pántlika utca 32., Hungary<br>
+      Registered with: Budapest Környéki Törvényszék Cégbírósága<br>
+      EU VAT number: HU24272766<br>
+      EUID: HUOCCSZ.13-09-241252<br>
+      Managing Director: Solymos Péter<br>
+      Email: [INSERT EMAIL @problemsolving.works]<br>
+      Website: problemsolving.works</p>
+
+      <h3>Content Responsibility</h3>
+      <p>Responsible for content under § 55 Abs. 2 RStV (Germany): Solymos Péter, 2040 Budaörs, Pántlika utca 32., Hungary.</p>
+
+      <h3>Dispute Resolution</h3>
+      <p>The European Commission provides an online dispute resolution platform: <a href="https://ec.europa.eu/consumers/odr/" target="_blank">ec.europa.eu/consumers/odr</a>.</p>
+      <p>We are not obliged to participate in consumer dispute resolution proceedings before a consumer arbitration body. We are willing to do so on a case-by-case basis for EU consumers.</p>
+
+      <!-- ============ PRIVACY POLICY ============ -->
+      <h2 class="chapter-title" id="privacy">Privacy Policy</h2>
+
+      <h3>1. Who We Are</h3>
+      <p>This website (problemsolving.works) is operated by <strong>Schindlberger Consulting Kft.</strong> (company registration number 13-09-241252, registered address 2040 Budaörs, Pántlika utca 32., Hungary; EU VAT number HU24272766), trading under the PS Works brand, which acts as data controller for this website and the services described on it.</p>
       <p>For all privacy enquiries: [INSERT EMAIL @problemsolving.works].</p>
 
-      <h2>2. What Data We Collect</h2>
+      <h3>2. What Data We Collect</h3>
       <ul>
         <li><strong>Identity data:</strong> name, job title, company name.</li>
         <li><strong>Contact data:</strong> email address, telephone number, business address.</li>
@@ -169,18 +206,18 @@
         <li><strong>Communications data:</strong> records of correspondence with us.</li>
       </ul>
 
-      <h2>3. How We Collect Your Data</h2>
+      <h3>3. How We Collect Your Data</h3>
       <p><strong>Directly from you:</strong> when you contact us, book a session, engage our services, or subscribe to communications.</p>
-      <p><strong>Automatically:</strong> via cookies and similar technologies when you visit our website — see Section 8 and our <a href="cookies.html" target="_blank">Cookie Policy</a>.</p>
+      <p><strong>Automatically:</strong> via cookies and similar technologies when you visit our website — see the <a href="#cookies">Cookie Policy</a> below.</p>
       <p><strong>From payment processors:</strong> transaction confirmation and billing data.</p>
 
-      <h2>4. Why We Use Your Data — Legal Basis</h2>
+      <h3>4. Why We Use Your Data — Legal Basis</h3>
       <p><strong>Performance of contract:</strong> to deliver services you have engaged us for, issue invoices, manage your account, and fulfil bookings.</p>
       <p><strong>Legitimate interests:</strong> to improve our services, maintain business records, send relevant follow-up communications to existing clients, and protect our legal rights.</p>
       <p><strong>Consent:</strong> for marketing communications to prospective clients, and for non-essential cookies. You may withdraw consent at any time.</p>
       <p><strong>Legal obligation:</strong> for tax, accounting, and regulatory compliance. Financial records are retained for 8 years under Hungarian accounting law (2000. évi C. törvény).</p>
 
-      <h2>5. How Long We Keep Your Data</h2>
+      <h3>5. How Long We Keep Your Data</h3>
       <ul>
         <li><strong>Active client records:</strong> for the duration of the engagement plus 8 years (statutory accounting requirement).</li>
         <li><strong>Enquiry data (no contract formed):</strong> 2 years from last contact.</li>
@@ -188,17 +225,17 @@
         <li><strong>Website technical data:</strong> 13 months (standard analytics retention).</li>
       </ul>
 
-      <h2>6. Who We Share Your Data With</h2>
+      <h3>6. Who We Share Your Data With</h3>
       <p>We do not sell personal data. We may share data with:</p>
       <ul>
         <li>IT and hosting service providers, acting as data processors under written agreements.</li>
         <li>Payment processors (Stripe, Wise, Payoneer) — each under their own privacy terms.</li>
+        <li>Website analytics and delivery providers (MailerLite, Wistia, Cloudflare Web Analytics) — see the <a href="#cookies">Cookie Policy</a> for details on each.</li>
         <li>Professional advisers (accountants, lawyers) — under confidentiality obligations.</li>
         <li>Tax and regulatory authorities where required by law.</li>
       </ul>
-      <p><strong>International transfers:</strong> if your data is processed by PS Works FZ-LLC in the UAE, we rely on the UAE's Personal Data Protection Law 2021 framework and apply appropriate contractual safeguards. You may request details of the safeguards applied.</p>
 
-      <h2>7. Your Rights</h2>
+      <h3>7. Your Rights</h3>
       <p>If you are based in the EEA, under GDPR you have the right to:</p>
       <ul>
         <li><strong>Access</strong> — request a copy of your personal data.</li>
@@ -212,11 +249,34 @@
       <p>To exercise any of these rights, contact us at [INSERT EMAIL @problemsolving.works]. We will respond within 30 days.</p>
       <p>You also have the right to lodge a complaint with your national supervisory authority. In Hungary: Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH) — naih.hu.</p>
 
-      <h2>8. Cookies</h2>
-      <p>We use cookies on our website. Please see our <a href="cookies.html" target="_blank">Cookie Policy</a> for full details. You can manage cookie preferences through the consent banner on your first visit, or through your browser settings.</p>
+      <h3>8. Cookies</h3>
+      <p>We use cookies on our website. See the <a href="#cookies">Cookie Policy</a> below for full details. You can manage cookie preferences through the consent banner on your first visit, or through your browser settings.</p>
 
-      <h2>9. Changes to This Policy</h2>
-      <p>We may update this policy. The current version is always available at problemsolving.works/tp/privacy.html. We will notify active clients of material changes by email.</p>
+      <h3>9. Changes to This Policy</h3>
+      <p>We may update this policy. The current version is always available at problemsolving.works/tp/legal.html#privacy. We will notify active clients of material changes by email.</p>
+
+      <!-- ============ COOKIE POLICY ============ -->
+      <h2 class="chapter-title" id="cookies">Cookie Policy</h2>
+
+      <h3>What Are Cookies</h3>
+      <p>Cookies are small text files placed on your device when you visit a website. They help a site function, remember preferences, and help us understand how it's used.</p>
+
+      <h3>Cookies We Use</h3>
+      <p>This site does not set any cookies of its own — no login, cart, or session state to track. The cookies that do get set all come from third-party tools we use to run the email opt-ins and video content, and only load after you accept:</p>
+      <ul>
+        <li><strong>MailerLite:</strong> our email marketing platform. Used both to power the opt-in forms and, once accepted, to recognize returning visitors and understand how people move through the site before subscribing.</li>
+        <li><strong>Wistia:</strong> hosts the videos embedded on this site and sets cookies to track playback and viewing analytics.</li>
+      </ul>
+      <p><strong>Cloudflare Web Analytics:</strong> we use this to understand overall site traffic. It is cookie-free — it doesn't set any cookie or store anything on your device — so it isn't part of the accept/decline choice below. The limited data it processes (like IP address, handled transiently) is covered in the Privacy Policy above.</p>
+      <p>If you book a call through our scheduling popup, that action loads a Google Calendar page in an iframe, which may set its own cookies under Google's policies — this only happens if you actively open the booking popup.</p>
+      <p>We do not use advertising cookies or cross-site tracking cookies.</p>
+
+      <h3>Your Choices</h3>
+      <p>When you first visit, a banner lets you accept or decline the cookies listed above. If you decline, none of them are set — email opt-in forms still work, since submitting your email doesn't require MailerLite's tracking cookie to function. You can change your choice at any time using the "Cookie settings" link in the footer. You can also manage cookies through your browser settings — note that blocking all cookies may affect website functionality.</p>
+
+      <h3>Contact</h3>
+      <p>Questions about this Cookie Policy can be sent to [INSERT EMAIL @problemsolving.works].</p>
+
     </div>
   </div>
 </section>
@@ -225,12 +285,79 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;
-	<a href="cookies.html" target="_blank">Cookies</a> &nbsp;·&nbsp;
-	<a href="imprint.html" target="_blank">Imprint</a> &nbsp;·&nbsp;&nbsp; </span>
+	<a href="legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;
+	<a href="#" onclick="reopenCookieBanner(event)">Cookie settings</a> &nbsp;·&nbsp;&nbsp; </span>
     <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
+
+<!-- Cookie consent begin -->
+<style>
+  #cookie-banner {
+    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+    background: #141720; border-top: 1px solid #252a3a; padding: 1.1rem 1.5rem;
+  }
+  #cookie-banner .cb-inner {
+    max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
+    justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  }
+  #cookie-banner p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #8a90a4; max-width: 720px; }
+  #cookie-banner a { color: #f5a623; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  #cookie-decline {
+    background: transparent; border: 1px solid #252a3a; color: #8a90a4;
+    padding: 0.55rem 1.1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+  }
+  #cookie-accept {
+    background: #f5a623; border: none; color: #000; font-weight: 700;
+    padding: 0.55rem 1.3rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+  }
+</style>
+<div id="cookie-banner">
+  <div class="cb-inner">
+    <p>This site uses cookies so our video delivery and email tools work, and so we can respond to you properly. No 3rd party advertising or cross-site trackers - we request your <a href="legal.html#cookies" target="_blank">privacy</a>.</p>
+    <div class="cb-actions">
+      <button id="cookie-decline" type="button">Decline</button>
+      <button id="cookie-accept" type="button">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function() {
+    var CONSENT_KEY = 'psw_cookie_consent';
+
+    function loadTrackers() {
+      // No trackers on this page — nothing to load. Preference is still recorded
+      // so it carries over to pages that do use MailerLite/Wistia.
+    }
+
+    function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
+    function showBanner() { document.getElementById('cookie-banner').style.display = 'block'; }
+
+    window.reopenCookieBanner = function(e) {
+      if (e) e.preventDefault();
+      showBanner();
+    };
+
+    var consent = localStorage.getItem(CONSENT_KEY);
+    if (consent === 'accepted') {
+      loadTrackers();
+    } else if (consent !== 'declined') {
+      showBanner();
+    }
+
+    document.getElementById('cookie-accept').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      hideBanner();
+      loadTrackers();
+    });
+    document.getElementById('cookie-decline').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      hideBanner();
+    });
+  })();
+</script>
+<!-- Cookie consent end -->
 
 </body>
 </html>

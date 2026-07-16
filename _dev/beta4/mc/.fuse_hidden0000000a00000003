@@ -71,9 +71,10 @@
 
     /* ── HERO ── */
     .hero {
+      min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 8.5rem 2rem 4rem;
+      padding: 7rem 2rem 5rem;
       text-align: center;
     }
 
@@ -184,8 +185,6 @@
     }
     footer a { color: var(--accent); text-decoration: none; }
     .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
-    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
-    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
     footer .linkedin-link { display: inline-flex; }
 
     /* ── RESPONSIVE ── */
@@ -206,7 +205,15 @@
     }
   </style>
 
-<!-- MailerLite Universal (site visitor tracking) is loaded only after cookie consent — see consent script near end of <body>. -->
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2446193');
+</script>
+<!-- End MailerLite Universal -->
 
 </head>
 <body>
@@ -215,7 +222,7 @@
 <nav>
   <a href="../index.html" class="nav-logo">ProblemSolving.Works</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html?openBooking=1" class="nav-cta">Diagnostic Call (FREE)</a></li>
+    <li><a href="../index.html#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
   </ul>
   <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -227,12 +234,13 @@
   <h1>Hidden <span>Costs</span> of Problems</h1>
   <p>Companies never account for these. Know your numbers.</p>
   <div class="video-hero">
-    <!-- Wistia player scripts load only after cookie consent — see consent script near end of <body>. -->
+    <script src="https://fast.wistia.com/player.js" async></script>
+	<script src="https://fast.wistia.com/embed/lqmqk5aqnd.js" async type="module"></script>
 	<style>wistia-player[media-id='lqmqk5aqnd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lqmqk5aqnd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
 	<wistia-player media-id="lqmqk5aqnd" aspect="1.7777777777777777"></wistia-player>
   </div>
   <div class="btn-row">
-    <a href="../index.html?openBooking=1" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
+    <a href="../index.html#work-with-me" class="btn-primary">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
   </div>
  </section>
 
@@ -260,89 +268,10 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="../tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="../tp/legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;
-	<a href="#" onclick="reopenCookieBanner(event)">Cookie settings</a> &nbsp;·&nbsp;&nbsp; </span>
-    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+	<a href="../tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
-
-<!-- Cookie consent begin -->
-<style>
-  #cookie-banner {
-    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
-    background: #141720; border-top: 1px solid #252a3a; padding: 1.1rem 1.5rem;
-  }
-  #cookie-banner .cb-inner {
-    max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
-    justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
-  }
-  #cookie-banner p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #8a90a4; max-width: 720px; }
-  #cookie-banner a { color: #f5a623; }
-  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
-  #cookie-decline {
-    background: transparent; border: 1px solid #252a3a; color: #8a90a4;
-    padding: 0.55rem 1.1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
-  }
-  #cookie-accept {
-    background: #f5a623; border: none; color: #000; font-weight: 700;
-    padding: 0.55rem 1.3rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: inherit;
-  }
-</style>
-<div id="cookie-banner">
-  <div class="cb-inner">
-    <p>This site uses cookies so our video delivery and email tools work, and so we can respond to you properly. No 3rd party advertising or cross-site trackers - we request your <a href="../tp/legal.html#cookies" target="_blank">privacy</a>.</p>
-    <div class="cb-actions">
-      <button id="cookie-decline" type="button">Decline</button>
-      <button id="cookie-accept" type="button">Accept</button>
-    </div>
-  </div>
-</div>
-<script>
-  (function() {
-    var CONSENT_KEY = 'psw_cookie_consent';
-
-    function loadTrackers() {
-      // MailerLite Universal (site visitor tracking)
-      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-      ml('account', '2446193');
-
-      // Wistia player (video)
-      var w1 = document.createElement('script'); w1.src = 'https://fast.wistia.com/player.js'; w1.async = true;
-      var w2 = document.createElement('script'); w2.src = 'https://fast.wistia.com/embed/lqmqk5aqnd.js'; w2.async = true; w2.type = 'module';
-      document.head.appendChild(w1);
-      document.head.appendChild(w2);
-    }
-
-    function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
-    function showBanner() { document.getElementById('cookie-banner').style.display = 'block'; }
-
-    window.reopenCookieBanner = function(e) {
-      if (e) e.preventDefault();
-      showBanner();
-    };
-
-    var consent = localStorage.getItem(CONSENT_KEY);
-    if (consent === 'accepted') {
-      loadTrackers();
-    } else if (consent !== 'declined') {
-      showBanner();
-    }
-
-    document.getElementById('cookie-accept').addEventListener('click', function() {
-      localStorage.setItem(CONSENT_KEY, 'accepted');
-      hideBanner();
-      loadTrackers();
-    });
-    document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.setItem(CONSENT_KEY, 'declined');
-      hideBanner();
-    });
-  })();
-</script>
-<!-- Cookie consent end -->
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cookie Policy — ProblemSolving.Works</title>
+  <title>Terms and Conditions — ProblemSolving.Works</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,8 +115,6 @@
     }
     footer a { color: var(--accent); text-decoration: none; }
     .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
-    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
-    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
     footer .linkedin-link { display: inline-flex; }
 
     /* ── RESPONSIVE ── */
@@ -134,42 +132,62 @@
     }
   </style>
 
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2446193');
+</script>
+<!-- End MailerLite Universal -->
+
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
   <a href="../index.html" class="nav-logo">ProblemSolving.Works</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#work-with-me" class="nav-cta">Diagnostic Call (FREE)</a></li>
+  </ul>
+  <div class="hamburger" id="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
 <!-- PAGE HEAD -->
 <section class="page-head">
   <div class="label">Legal</div>
-  <h1 class="sec-title">Cookie Policy</h1>
-  <p class="updated">Last updated: July 15, 2026</p>
+  <h1 class="sec-title">Terms &amp; Conditions</h1>
+  <p class="updated"><!-- ✏️ Update date whenever the text changes -->Last updated: July 8, 2026</p>
 </section>
 
 <!-- CONTENT -->
 <section style="padding-top:1rem;">
   <div class="container">
     <div class="legal-content">
-      <h2>What Are Cookies</h2>
-      <p>Cookies are small text files placed on your device when you visit a website. They help the site function, remember preferences, and help us understand how our site is used.</p>
+      <!-- ✏️ Placeholder text below — replace with your actual, reviewed Terms & Conditions -->
+      <h2>1. Introduction</h2>
+      <p>These Terms &amp; Conditions ("Terms") govern your use of ProblemSolving.Works (the "Site") and any services, minicourses, calls, or content offered through it. By using the Site, you agree to these Terms.</p>
 
-      <h2>Cookies We Use</h2>
-      <p><strong>Essential cookies:</strong> required for the website to function (security, session management). These cannot be disabled. No consent required.</p>
-      <p><strong>Analytics cookies:</strong> help us understand how visitors use the site — which pages are visited, session duration, referral source. [INSERT: analytics tool once chosen]. Consent required.</p>
-      <p><strong>Preference cookies:</strong> remember your settings and choices. Consent required.</p>
-      <p>We do not use advertising cookies or cross-site tracking.</p>
+      <h2>2. Services</h2>
+      <p>ProblemSolving.Works provides educational content, consulting, and diagnostic calls related to problem-solving in business contexts. Content is provided for informational purposes and does not constitute professional, legal, or financial advice.</p>
 
-      <h2>Your Choices</h2>
-      <p>You can accept or decline non-essential cookies via the consent banner on your first visit. You can change preferences at any time using the cookie settings link in the footer. You can also manage cookies through your browser settings — note that blocking all cookies may affect website functionality.</p>
+      <h2>3. Bookings and Calls</h2>
+      <p>Diagnostic calls and any paid engagements are subject to separate scheduling and, where applicable, payment terms communicated at the time of booking.</p>
 
-      <h2>More Information</h2>
-      <p>For more detail on how we use your data, see our <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
+      <h2>4. Intellectual Property</h2>
+      <p>All content on this Site — including video, text, graphics, and course material — is the property of ProblemSolving.Works unless otherwise stated, and may not be reproduced or distributed without permission.</p>
 
-      <h2>Contact</h2>
-      <p>Questions about this Cookie Policy can be sent to [INSERT EMAIL @problemsolving.works].</p>
+      <h2>5. Limitation of Liability</h2>
+      <p>The Site and its content are provided "as is." ProblemSolving.Works is not liable for any indirect, incidental, or consequential damages arising from use of the Site or its content.</p>
+
+      <h2>6. Governing Law</h2>
+      <p><!-- ✏️ Confirm jurisdiction -->These Terms are governed by the laws of Hungary and the European Union, without regard to conflict of law principles.</p>
+
+      <h2>7. Contact</h2>
+      <p><!-- ✏️ Add preferred contact email --> Questions about these Terms can be sent via the contact details on the Site.</p>
     </div>
   </div>
 </section>
@@ -178,10 +196,8 @@
 <footer>
   <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
     <a href="terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;
-	<a href="cookies.html" target="_blank">Cookies</a> &nbsp;·&nbsp;
-	<a href="imprint.html" target="_blank">Imprint</a> &nbsp;·&nbsp;&nbsp; </span>
-    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+	<a href="privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
   </p>
 </footer>
 
