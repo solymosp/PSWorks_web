@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /mc/01firefighting.html
+Disallow: /mc/02bad-fix.html
+Disallow: /mc/03real-costs.html

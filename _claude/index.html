@@ -44,6 +44,10 @@
       font-size: 16px; font-weight: 700; letter-spacing: 3px;
       line-height: 1.2; text-transform: uppercase;
       color: var(--accent); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-logo:hover {
+      color: var(--accent2);
     }
 
     .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -61,6 +65,10 @@
       padding: 0.45rem 1.1rem;
       border-radius: 6px;
       font-weight: 700 !important;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--accent2) !important;
     }
 
     .hamburger {
@@ -264,6 +272,7 @@
       text-align: center; color: var(--muted); font-size: 0.82rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
     .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
     footer .linkedin-link { display: inline-flex; }
 
@@ -305,12 +314,12 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <h1>Problem-Solving is the <span>Most Neglected</span><br>and Missing Skill in Business.</h1>
-  <p>I explain.</p>
+  <p>I explain why.</p>
   <div class="video-hero">
     <!-- ✏️ Replace VIDEO_ID with your YouTube video ID -->
     <!-- Wistia player scripts load only after cookie consent; until then this shows the blurred thumbnail placeholder defined below. -->
     <style>wistia-player[media-id='lskbsr71kr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lskbsr71kr/swatch'); display: block; filter: blur(5px); padding-top:55.94%; }</style> <wistia-player media-id="lskbsr71kr" aspect="1.7877094972067038"></wistia-player>
-    <div class="video-consent-note"><p>This video needs your cookie consent to load. <a href="#" onclick="reopenCookieBanner(event)" style="color: var(--accent); pointer-events: auto;">Click here to review and choose</a>.</p></div>
+    <div class="video-consent-note"><p>Loading video&hellip;</p></div>
   </div>
   <div class="btn-row">
     <a href="#" class="btn-primary" onclick="openScheduling(event)">Diagnostic Call - Click here to schedule directly (FREE, 30 min.)</a>
@@ -390,33 +399,52 @@
 <!-- Cookie consent begin -->
 <style>
   #cookie-banner {
-    display: none; position: fixed; inset: 0; z-index: 10000;
-    background: rgba(8,9,13,0.72);
-    align-items: center; justify-content: center; padding: 1.5rem;
+    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+    background: #141720; border-top: 1px solid #252a3a;
+    padding: 1rem 1.5rem; box-shadow: 0 -12px 40px rgba(0,0,0,0.4);
   }
   #cookie-banner .cb-inner {
-    max-width: 460px; width: 100%; margin: 0 auto;
-    background: #141720; border: 1px solid #252a3a; border-radius: 14px;
-    padding: 1.9rem 1.9rem 1.7rem; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-    display: flex; flex-direction: column; gap: 1.3rem; text-align: center;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
   }
-  #cookie-banner p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: #8a90a4; }
+  #cookie-banner .cb-text { flex: 1; min-width: 240px; }
+  #cookie-banner p { margin: 0; font-size: 0.85rem; line-height: 1.55; color: #8a90a4; }
+  #cookie-banner p + p { margin-top: 0.5rem; }
+  #cookie-banner ul { margin: 0.4rem 0; padding-left: 1.1rem; font-size: 0.85rem; line-height: 1.5; color: #8a90a4; }
   #cookie-banner a { color: #f5a623; }
-  #cookie-banner .cb-actions { display: flex; gap: 0.7rem; }
+  #cookie-banner a:hover { text-decoration: underline; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
   #cookie-decline, #cookie-accept {
-    flex: 1; padding: 0.65rem 1.2rem; border-radius: 6px; font-size: 0.88rem;
-    font-weight: 700; cursor: pointer; font-family: inherit;
+    padding: 0.6rem 1.3rem; border-radius: 6px; font-size: 0.85rem;
+    font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
   }
   #cookie-decline {
     background: transparent; border: 1px solid #3a4058; color: #c7cbdb;
   }
   #cookie-accept {
-    background: #f5a623; border: 1px solid #f5a623; color: #000;
+    background: var(--accent); border: 1px solid var(--accent); color: #000;
+  }
+  #cookie-accept:hover {
+    background: var(--accent2); border-color: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    #cookie-banner .cb-inner { flex-direction: column; align-items: stretch; }
+    #cookie-decline, #cookie-accept { flex: 1; }
   }
 </style>
 <div id="cookie-banner">
   <div class="cb-inner">
-    <p>This site needs cookies so our video delivery and email tools work, and so we can respond to you properly. No advertising cookies or cross-site trackers throughout this site - we request your <a href="tp/legal.html#cookies" target="_blank">privacy</a>.</p>
+    <div class="cb-text">
+      <p>We use minimalist <a href="tp/legal.html#cookies" target="_blank">cookies</a> on this website to follow visitor engagement:</p>
+      <ul>
+        <li><strong style="color:#c7cbdb;">Wistia:</strong> video engagement</li>
+        <li><strong style="color:#c7cbdb;">MailerLite:</strong> email engagement</li>
+      </ul>
+      <p>No advertisement cookies or 3rd party tracking. We respect your <a href="tp/legal.html#privacy" target="_blank">privacy</a>.</p>
+    </div>
     <div class="cb-actions">
       <button id="cookie-decline" type="button">Decline</button>
       <button id="cookie-accept" type="button">Accept</button>
@@ -426,20 +454,33 @@
 <script>
   (function() {
     var CONSENT_KEY = 'psw_cookie_consent';
+    var CONSENT_TS_KEY = 'psw_cookie_consent_ts';
+    var RENOTIFY_MS = 14 * 24 * 60 * 60 * 1000; // 2 weeks
 
-    function loadTrackers() {
-      // MailerLite Universal (site visitor tracking)
+    function loadWistia() {
+      // Wistia player (hero video) - always loaded. Wistia's account-level
+      // Privacy Mode keeps every viewer anonymous (no cookies, no personal
+      // data) by default, so the video plays for everyone regardless of the
+      // cookie choice below. Accepting just upgrades this visitor to
+      // identified tracking via wistiaConsent(true).
+      var w1 = document.createElement('script'); w1.src = 'https://fast.wistia.com/player.js'; w1.async = true;
+      var w2 = document.createElement('script'); w2.src = 'https://fast.wistia.com/embed/lskbsr71kr.js'; w2.async = true; w2.type = 'module';
+      document.head.appendChild(w1);
+      document.head.appendChild(w2);
+    }
+
+    function loadMailerLite() {
+      // MailerLite Universal (site visitor tracking) - only after Accept.
       (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
       .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
       n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
       (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
       ml('account', '2446193');
+    }
 
-      // Wistia player (hero video)
-      var w1 = document.createElement('script'); w1.src = 'https://fast.wistia.com/player.js'; w1.async = true;
-      var w2 = document.createElement('script'); w2.src = 'https://fast.wistia.com/embed/lskbsr71kr.js'; w2.async = true; w2.type = 'module';
-      document.head.appendChild(w1);
-      document.head.appendChild(w2);
+    function wistiaConsent(value) {
+      window._wq = window._wq || [];
+      window._wq.push(function(W) { W.consent(value); });
     }
 
     function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
@@ -450,21 +491,38 @@
       showBanner();
     };
 
+    loadWistia();
+
+    var consentAt = parseInt(localStorage.getItem(CONSENT_TS_KEY), 10) || 0;
+    var renotifyDue = consentAt && (Date.now() - consentAt > RENOTIFY_MS);
     var consent = localStorage.getItem(CONSENT_KEY);
+
     if (consent === 'accepted') {
-      loadTrackers();
+      loadMailerLite();
+      wistiaConsent(true);
     } else {
-      showBanner();
+      // Undecided and declined visitors are both treated as anonymous here -
+      // this is the authoritative choice regardless of the Wistia account's
+      // own default setting, so the video is always safe to show before a
+      // decision has been made.
+      wistiaConsent(false);
+      if (consent !== 'declined' || renotifyDue) {
+        showBanner();
+      }
     }
 
     document.getElementById('cookie-accept').addEventListener('click', function() {
       localStorage.setItem(CONSENT_KEY, 'accepted');
+      localStorage.removeItem(CONSENT_TS_KEY);
       hideBanner();
-      loadTrackers();
+      loadMailerLite();
+      wistiaConsent(true);
     });
     document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.removeItem(CONSENT_KEY);
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      localStorage.setItem(CONSENT_TS_KEY, String(Date.now()));
       hideBanner();
+      wistiaConsent(false);
     });
   })();
 </script>
