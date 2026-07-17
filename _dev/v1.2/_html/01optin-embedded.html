@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Minicourse — ProblemSolving.Works</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0d0f14;
+      --bg3:    #1c2030;
+      --accent: #f5a623;
+      --accent2: #e8913a;
+      --text:   #f0f2f7;
+      --muted:  #8a90a4;
+      --border: #252a3a;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 3rem 2rem;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+
+    .optin-inner {
+      display: grid; grid-template-columns: auto auto;
+      gap: 2.7rem; align-items: center; justify-content: center;
+    }
+
+    .optin-photo {
+      width: 400px; aspect-ratio: 4/5; background: var(--bg3);
+      border-radius: var(--radius); border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .optin-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto 1.6rem;
+    }
+
+    /* Placeholder shown in the embedded-form slot until MailerLite's script
+       (loaded only after cookie Accept — see consent script near end of
+       <body>) renders the real form in its place. */
+    .ml-embed-placeholder {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg3); padding: 1.6rem;
+      text-align: center; color: var(--muted); font-size: 0.85rem; line-height: 1.6;
+    }
+    .ml-embed-placeholder a { color: var(--accent); }
+    .ml-embedded:not(:empty) + .ml-embed-placeholder { display: none; }
+
+    @media (max-width: 768px) {
+      .optin-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .optin-photo  { width: 100%; aspect-ratio: 3/2; }
+    }
+  </style>
+
+<!-- MailerLite Universal is loaded only after cookie consent — see consent script near end of <body>.
+     Unlike the raw-webform version of this page, the embedded form below (data-form="BJW2gY")
+     depends entirely on that Universal script to render and function, so — deliberately, to keep
+     the site's "MailerLite only loads after Accept" promise in tp/legal.html#cookies true — the
+     signup form itself will not appear until the visitor accepts. This is the trade-off for not
+     exposing the post-signup redirect URL in this page's source (see note near the embed div below). -->
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="optin-inner">
+      <div class="optin-photo">
+        <img src="../img/peter.webp" alt="Peter">
+      </div>
+      <div>
+
+        <!-- MailerLite embedded form (reference only, no target-link data in this page's source).
+             Success/redirect behavior for this form must be configured inside MailerLite itself:
+             this form's Success step should be set to "Redirect to URL" -> the full address of
+             01firefighting.html on the live domain. Nothing here controls that anymore. -->
+        <div class="ml-embedded" data-form="BJW2gY"></div>
+        <div class="ml-embed-placeholder">Loading signup form&hellip; if this doesn't disappear, accept cookies below to enable it.</div>
+        <div style="text-align:center; font-family:'Montserrat', sans-serif; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#4a4d5a; margin-top:0.8rem;">ProblemSolving.Works</div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- Cookie consent begin -->
+<style>
+  #cookie-banner {
+    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+    background: #141720; border-top: 1px solid #252a3a;
+    padding: 1rem 1.5rem; box-shadow: 0 -12px 40px rgba(0,0,0,0.4);
+  }
+  #cookie-banner .cb-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  #cookie-banner .cb-text { flex: 1; min-width: 240px; }
+  #cookie-banner p { margin: 0; font-size: 0.85rem; line-height: 1.55; color: #8a90a4; }
+  #cookie-banner p + p { margin-top: 0.5rem; }
+  #cookie-banner ul { margin: 0.4rem 0; padding-left: 1.1rem; font-size: 0.85rem; line-height: 1.5; color: #8a90a4; }
+  #cookie-banner a { color: #f5a623; }
+  #cookie-banner .cb-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  #cookie-decline, #cookie-accept {
+    padding: 0.6rem 1.3rem; border-radius: 6px; font-size: 0.85rem;
+    font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;
+  }
+  #cookie-decline {
+    background: transparent; border: 1px solid #3a4058; color: #c7cbdb;
+  }
+  #cookie-accept {
+    background: #f5a623; border: 1px solid #f5a623; color: #000;
+  }
+
+  @media (max-width: 640px) {
+    #cookie-banner .cb-inner { flex-direction: column; align-items: stretch; }
+    #cookie-decline, #cookie-accept { flex: 1; }
+  }
+</style>
+<div id="cookie-banner">
+  <div class="cb-inner">
+    <div class="cb-text">
+      <p>We use a minimum amount of <a href="../tp/legal.html#cookies" target="_blank">cookies</a> on this website to follow visitor engagement:</p>
+      <ul>
+        <li><strong style="color:#c7cbdb;">Wistia:</strong> video performance</li>
+        <li><strong style="color:#c7cbdb;">MailerLite:</strong> email signups</li>
+      </ul>
+      <p>No ads or 3rd party tracking. Accepting helps us correct errors and improve our service.</p>
+    </div>
+    <div class="cb-actions">
+      <button id="cookie-decline" type="button">Decline</button>
+      <button id="cookie-accept" type="button">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function() {
+    var CONSENT_KEY = 'psw_cookie_consent';
+    var CONSENT_TS_KEY = 'psw_cookie_consent_ts';
+    var RENOTIFY_MS = 14 * 24 * 60 * 60 * 1000; // 2 weeks
+
+    function loadTrackers() {
+      // MailerLite Universal — required both for site visitor tracking AND
+      // to render/activate the embedded form above. Only loaded after Accept.
+      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+      ml('account', '2446193');
+    }
+
+    function hideBanner() { document.getElementById('cookie-banner').style.display = 'none'; }
+    function showBanner() { document.getElementById('cookie-banner').style.display = 'flex'; }
+
+    window.reopenCookieBanner = function(e) {
+      if (e) e.preventDefault();
+      showBanner();
+    };
+
+    var consentAt = parseInt(localStorage.getItem(CONSENT_TS_KEY), 10) || 0;
+    var renotifyDue = consentAt && (Date.now() - consentAt > RENOTIFY_MS);
+    var consent = localStorage.getItem(CONSENT_KEY);
+
+    if (consent === 'accepted') {
+      loadTrackers();
+    } else if (consent !== 'declined' || renotifyDue) {
+      showBanner();
+    }
+
+    document.getElementById('cookie-accept').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      localStorage.removeItem(CONSENT_TS_KEY);
+      hideBanner();
+      loadTrackers();
+    });
+    document.getElementById('cookie-decline').addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      localStorage.setItem(CONSENT_TS_KEY, String(Date.now()));
+      hideBanner();
+    });
+  })();
+</script>
+<!-- Cookie consent end -->
+
+</body>
+</html>

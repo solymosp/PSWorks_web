@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Minicourse — ProblemSolving.Works</title>
+  <!-- Footer-only variant: no nav — for landing use where the footer's Terms/Privacy/LinkedIn links still matter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0f14;
+      --bg2:      #141720;
+      --bg3:      #1c2030;
+      --accent:   #f5a623;
+      --accent2:  #e8913a;
+      --text:     #f0f2f7;
+      --muted:    #8a90a4;
+      --border:   #252a3a;
+      --radius:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px; font-weight: 700; letter-spacing: 3px;
+      line-height: 1.2; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #000 !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .label {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+
+    /* ── OPT-IN ── */
+    .optin-page { padding: 6rem 2rem 3rem; }
+
+    .optin-inner {
+      display: grid; grid-template-columns: 1fr 1.3fr;
+      gap: 4rem; align-items: center;
+    }
+
+    .optin-photo {
+      aspect-ratio: 4/5; background: var(--bg3);
+      border-radius: var(--radius); border: 1px solid var(--border);
+      overflow: hidden; display: flex; align-items: center;
+      justify-content: center; color: var(--muted); font-size: 0.85rem;
+    }
+    .optin-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .optin-copy h1 {
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .optin-copy h1 em { font-style: normal; color: var(--accent); }
+
+    .optin-copy > p {
+      color: var(--muted); font-size: 0.97rem;
+      line-height: 1.75; margin-bottom: 1.8rem; max-width: 480px;
+    }
+
+    /* ── FORM ── */
+    .optin-form { max-width: 460px; }
+
+    .field { margin-bottom: 1rem; }
+    .field label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.45rem;
+    }
+    .field input[type="text"],
+    .field input[type="email"] {
+      width: 100%; background: var(--bg3); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.75rem 1rem; font-size: 0.95rem; font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .field input::placeholder { color: var(--muted); }
+    .field input:focus { outline: none; border-color: var(--accent); }
+
+    .consent {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin: 1.1rem 0 1.4rem;
+    }
+    .consent input[type="checkbox"] {
+      margin-top: 0.2rem; width: 16px; height: 16px; accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .consent label {
+      color: var(--muted); font-size: 0.82rem; line-height: 1.55;
+    }
+    .consent a { color: var(--accent); text-decoration: underline; }
+
+    .optin-submit {
+      width: 100%; background: var(--accent); color: #000;
+      border: none; padding: 0.9rem 2rem; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem; font-family: inherit;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .optin-submit:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 2rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
+    .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
+    footer .linkedin-link { display: inline-flex; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        background: var(--bg); padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border); gap: 1.2rem;
+      }
+      .nav-links.open { display: flex; }
+
+      .optin-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .optin-photo  { aspect-ratio: 3/2; }
+    }
+  </style>
+
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2446193');
+</script>
+<!-- End MailerLite Universal -->
+
+</head>
+<body>
+
+<!-- OPT-IN -->
+<section class="optin-page">
+  <div class="container">
+    <div class="optin-inner">
+      <div class="optin-photo">
+        <img src="peter.webp" alt="Peter">
+      </div>
+      <div class="optin-copy">
+        <div class="label">Free Minicourse</div>
+        <h1>Get Out of <em>Firefighting</em> Mode</h1>
+        <p>Enter your details for instant access to the minicourse, plus value-packed problem-solving tips from PS Works.</p>
+
+        <!-- ✏️ Replace this shell with your actual MailerLite embedded (inline) form code -->
+        <form class="optin-form" action="#" method="post">
+          <div class="field">
+            <label for="optin-name">Name</label>
+            <input type="text" id="optin-name" name="name" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="optin-email">Email address</label>
+            <input type="email" id="optin-email" name="email" placeholder="you@email.com" required>
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="optin-consent" name="consent" required>
+            <label for="optin-consent">Yes, by requesting this free minicourse, I'll also get value-packed problem-solving tips from PS Works. I can unsubscribe any time. We value your <a href="tp/privacy.html" target="_blank">privacy</a>.</label>
+          </div>
+          <button type="submit" class="optin-submit">Get my FREE Minicourse</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
+    <a href="tp/terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
+	<a href="tp/privacy.html" target="_blank">Privacy</a> &nbsp;·&nbsp;&nbsp; </span>
+    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn" onclick="window.open(this.href,'_blank','noopener,width=1000,height=800'); return false;"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+  </p>
+</footer>
+
+</body>
+</html>
