@@ -136,7 +136,8 @@
     }
     footer a { color: var(--muted); text-decoration: underline; }
     footer a:hover { color: var(--text); text-decoration: underline; }
-    .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .foot-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; row-gap: 0.35rem; column-gap: 0; }
+    .foot-brand, .foot-links { white-space: nowrap; display: inline-flex; align-items: center; }
     .linkedin-link { color: #4ea3ff; display: inline-flex; transition: color 0.2s, transform 0.2s; }
     .linkedin-link:hover { color: #2f7fd1; transform: translateY(-2px); }
     footer .linkedin-link { display: inline-flex; }
@@ -144,13 +145,14 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .hamburger { display: flex; }
+      section { padding: 3rem 1.5rem; }
 
       .nav-links {
         display: none; position: absolute;
         top: 100%; left: 0; right: 0;
-        flex-direction: column;
-        background: var(--bg); padding: 1.5rem 2rem;
-        border-bottom: 1px solid var(--border); gap: 1.2rem;
+        flex-direction: column; align-items: flex-end;
+        background: var(--bg); padding: 1.1rem 2rem;
+        border-bottom: 1px solid var(--border); gap: 0.9rem;
       }
       .nav-links.open { display: flex; }
     }
@@ -299,10 +301,9 @@
 
 <!-- FOOTER -->
 <footer>
-  <p class="foot-line"><span>© 2026 &nbsp;·&nbsp; ProblemSolvingWorks &nbsp;·&nbsp;
-    <a href="terms.html" target="_blank">Terms</a> &nbsp;·&nbsp;
-	<a href="legal.html" target="_blank">Legal</a> &nbsp;·&nbsp;&nbsp; </span>
-    <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+  <p class="foot-line">
+    <span class="foot-brand">&copy; 2026 &nbsp;&middot;&nbsp; ProblemSolvingWorks</span>
+    <span class="foot-links">&nbsp;&middot;&nbsp; <a href="terms.html" target="_blank">Terms</a> &nbsp;&middot;&nbsp; <a href="legal.html" target="_blank">Legal</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/petersolymos/" class="linkedin-link" target="_blank" rel="noopener" aria-label="Peter Solymos on LinkedIn"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a></span>
   </p>
 </footer>
 
